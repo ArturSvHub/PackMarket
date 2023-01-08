@@ -1,0 +1,24 @@
+{
+  "version": "1.0",
+  "defaultProvider": "unpkg",
+  "libraries": [
+    {
+      "library": "djibe-material@4.6.2-1.0",
+      "destination": "wwwroot",
+      "files": [
+        "js/material.js",
+        "js/material.js.map",
+        "js/material.min.js",
+        "js/material.min.js.map",
+        "css/material-plugins.css",
+        "css/material-plugins.css.map",
+        "css/material-plugins.min.css",
+        "css/material-plugins.min.css.map",
+        "css/material.css",
+        "css/material.css.map",
+        "css/material.min.css",
+        "css/material.min.css.map"
+      ]
+    }
+  ]
+}

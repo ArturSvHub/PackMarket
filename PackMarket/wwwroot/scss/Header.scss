@@ -1,0 +1,51 @@
+﻿@import 'variables.scss';
+
+.header {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-info {
+    height: 200px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.logo {
+    width: 100px;
+}
+
+.logo img {
+    width: 100%;
+    height: 100%;
+}
+
+.hello-slogan {
+    max-width: 400px;
+}
+
+.header-contacts-place {
+    display: flex;
+    align-items: start;
+}
+
+.header-contacts {
+    margin: 0 15px;
+}
+
+.header-contacts-button {
+    background-color: $secondary-color;
+    padding: 10px 10px;
+    margin: 0 15px;
+    border-radius: 10px;
+    color: white;
+
+    &:hover {
+        background-color: $primary-color;
+    }
+}

@@ -1,0 +1,51 @@
+﻿@using Microsoft.EntityFrameworkCore;
+@using PackMarket.Data;
+@using PackMarket.Data.Models;
+@inject IDbContextFactory<ApplicationDbContext> DbFactory
+
+@page "/admin/settings"
+
+
+
+<div class="page">
+    <h1>Settings page</h1>
+    @if(Roles==null||Roles.Count<1)
+    {
+        <p>Нема ничого</p>
+    }
+    else
+    {
+        foreach (var item in Roles)
+        {
+            <p>@item.Name</p>
+        }
+    }
+    <MudButton OnClick="CreateBaseRoles">Создать роли</MudButton>
+    <MudButton OnClick="ViewBaseRoles">Показать роли</MudButton>
+</div>
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = await DbFactory.CreateDbContextAsync();
+        Roles = context.Roles.ToList();
+    }
+    List<Role> Roles = new();
+    async Task CreateBaseRoles()
+    {
+        using var context =await DbFactory.CreateDbContextAsync();
+
+        await context.Roles.AddAsync(new Role
+            {
+                Name = "admin"
+            });
+        await context.Roles.AddAsync(new Role
+        {
+            Name="moderator"    
+        });
+        await context.SaveChangesAsync();
+    }
+    async Task ViewBaseRoles()
+    {
+        
+    }
+}

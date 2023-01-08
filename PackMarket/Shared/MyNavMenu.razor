@@ -1,0 +1,57 @@
+<div class="nav-wrapper">
+    <nav>
+        <ul class="topmenu">
+            <li>
+                <NavLink class="navlink" ActiveClass="navlink-active" href="catalog"><span>Каталог </span><MudIcon Icon="@Icons.Material.Filled.KeyboardArrowDown"></MudIcon></NavLink>
+                <ul class="submenu">
+                    @foreach (var item in list1)
+                    {
+                        <li>
+                            <a href="">@item</a>
+                            <ul class="submenu">
+                                @foreach (var val in list2)
+                                {
+                                    <li><a href="">@val</a></li>
+                                }
+                            </ul>
+                        </li>
+                    }
+                </ul>
+            </li>
+            <li><NavLink class="navlink" ActiveClass="navlink-active" href="new-products"><span>Новинки</span></NavLink></li>
+            <li><NavLink class="navlink" ActiveClass="navlink-active" href="stocks"><span>Акции</span></NavLink></li>
+            <li>
+                <NavLink class="navlink" ActiveClass="navlink-active" href="about"><span>О нас </span><MudIcon Icon="@Icons.Material.Filled.KeyboardArrowDown"></MudIcon></NavLink>
+                <ul class="submenu">
+                    <li><NavLink href="">Доставка</NavLink></li>
+                    <li><NavLink href="">Оплата</NavLink></li>
+                    <li><NavLink href="">Реквизиты</NavLink></li>
+                </ul>
+            </li>
+
+            <li><NavLink class="navlink" ActiveClass="navlink-active" href="price"><span>Прайс-лист</span></NavLink></li>
+            <li><NavLink class="navlink" ActiveClass="navlink-active" href="contacts"><span>Контакты</span></NavLink></li>
+            <li><NavLink class="navlink" href=""><MudIcon Icon="@Icons.Material.Filled.Search" /></NavLink></li>
+            <li><NavLink class="navlink" ActiveClass="navlink-active" href="cart"><MudIcon Icon="@Icons.Material.Filled.ShoppingCart" /><MudBadge Content="5" /></NavLink></li>
+        </ul>
+    </nav>
+</div>
+@code {
+    [Inject]
+    public NavigationManager NavigationManager { get; set; }
+    void GoToCatalog()
+    {
+        NavigationManager.NavigateTo("catalog");
+    }
+
+    List<string> list1 = new();
+    List<string> list2 = new();
+    protected override void OnInitialized()
+    {
+        for (int i = 0; i < 15; i++)
+        {
+            list1.Add($"категория товара {i}");
+            list2.Add($"товар {i} внутри");
+        }
+    }
+}

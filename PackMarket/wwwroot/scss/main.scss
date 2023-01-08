@@ -1,0 +1,45 @@
+﻿@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,600&subset=latin,cyrillic);
+@import 'variables.scss';
+@import 'MyNavMenu.scss';
+@import 'Header.scss';
+@import 'Footer.scss';
+@import 'Pages.scss';
+body{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+.bc-1{
+    background-color:$primary-color;
+}
+.bc-2 {
+    background-color:$secondary-color;
+}
+.bc-3 {
+    background-color:$third-color;
+}
+.bc-4 {
+    background-color:$forth-color;
+}
+.bc-5 {
+    background-color:$fifth-color;
+}
+.c-1 {
+    color: $primary-color;
+}
+
+.c-2 {
+    color: $secondary-color;
+}
+
+.c-3 {
+    color: $third-color;
+}
+
+.c-4 {
+    color: $forth-color;
+}
+
+.c-5 {
+    color: $fifth-color;
+}

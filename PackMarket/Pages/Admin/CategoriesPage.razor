@@ -1,0 +1,26 @@
+﻿@page "/admin/categories"
+
+<PageTitle>Админ-панель Категории</PageTitle>
+
+@*<AuthorizeView Roles="@TemplateRoles.Admin">*@
+    <MudDataGrid T="Category" MultiSelection="true" Items="@Categories" SortMode="SortMode.Multiple" Filterable="true" QuickFilter="@_quickFilter" Hideable="true"
+    RowClick="@RowClicked" SelectedItemsChanged="@SelectedItemsChanged">
+        <ToolBarContent>
+            <MudText Typo="Typo.h6">Категории</MudText>
+            <MudSpacer/>
+            <MudTextField @bind-Value="_searchString" Placeholder="Найти" Adornment="Adornment.Start" Immediate="true"
+            AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+        </ToolBarContent>
+        <Columns>
+            <SelectColumn T="Category"/>
+            <Column T="Category" Field="Id" Title="Id" Sortable="false" Filterable="false"/>
+            <Column T="Category" Field="Title" Title="Название" SortBy="@_sortBy"/>
+        </Columns>
+        <PagerContent>
+            <MudDataGridPager T="Category"/>
+        </PagerContent>
+    </MudDataGrid>
+@*</AuthorizeView>*@
+@code{
+    
+}

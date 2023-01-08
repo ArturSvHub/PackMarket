@@ -1,0 +1,31 @@
+﻿<MudCarousel Style="height:400px; width:1200px;align-self:center;" ShowArrows="@arrows" ShowBullets="@bullets" EnableSwipeGesture="@enableSwipeGesture" AutoCycle="@autocycle" AutoCycleTime="@ts" TData="object">
+    <MudCarouselItem Transition="transition" Color="@Color.Primary">
+        <figure style="max-width:100%;">
+            <img style="width:100%; height:auto;" src="img/promo/promo-1.jpg" alt="promo-1" />
+        </figure>
+    </MudCarouselItem>
+    <MudCarouselItem Transition="transition" Color="@Color.Secondary">
+        <div style="height:100%;">
+            <img src="img/promo/promo-2.jpg" alt="promo-2" />
+        </div>
+    </MudCarouselItem>
+    <MudCarouselItem Transition="transition">
+        <div style="height:100%;">
+            <img src="img/promo/promo-3.jpg" alt="promo-3" />
+        </div>
+    </MudCarouselItem>
+    <MudCarouselItem Transition="transition">
+        <div style="height:100%;">
+            <img src="img/promo/promo-4.jpg" alt="promo-4" />
+        </div>
+    </MudCarouselItem>
+</MudCarousel>
+
+@code {
+    TimeSpan ts = new TimeSpan(0,0,10);
+    private bool arrows = true;
+    private bool bullets = true;
+    private bool enableSwipeGesture = true;
+    private bool autocycle = true;
+    private Transition transition = Transition.Fade;
+}

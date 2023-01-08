@@ -1,0 +1,100 @@
+﻿@import 'variables.scss';
+
+.footer {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+/*.footer div {
+    border: 1px dotted;
+}*/
+
+.footer-main {
+    background-color: $primary-color;
+}
+
+.footer-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer-menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding:2% 0;
+}
+
+.footer-copy {
+    background-color: $secondary-color;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+.footer-nav-link {
+    padding: 10px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+    margin: 0;
+    padding:15px 15px;
+
+    span {
+        padding: 0;
+    }
+}
+.footer-nav-link:hover {
+    background-color: $secondary-color;
+    color: white;
+    transition: .2s linear;
+}
+
+.footer-nav-link-active {
+    color: $accent3-color;
+}
+
+
+.footer-callback-div, .footer-mail-div {
+    width: 30%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    margin:2% 2%;
+}
+
+.footer-callback-div {
+}
+
+.footer-mail-div {
+}
+.footer-component-btn {
+    color: white;
+    padding:10px;
+    border:solid 1px white;
+    border-radius:10px;
+    margin:5px 0;
+}
+.footer-component-btn:hover{
+    background-color:$secondary-color;
+}
+.footer-big-number {
+    color: white;
+    font-size: 25px;
+}
+.footer-component-mail, .footer-component-p {
+    color: white;
+    font-size:11px;
+    margin:5px;
+}
+.footer-component-mail{
+    text-decoration:underline;
+}
+.footer-component-p {
+}

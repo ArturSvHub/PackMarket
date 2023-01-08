@@ -1,0 +1,14 @@
+﻿<CascadingAuthenticationState>
+    <Router AppAssembly="@typeof(App).Assembly">
+        <Found Context="routeData">
+            <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+            <FocusOnNavigate RouteData="@routeData" Selector="h1" />
+        </Found>
+        <NotFound>
+            <PageTitle>404</PageTitle>
+            <LayoutView Layout="@typeof(MainLayout)">
+                <ErrorPage/>
+            </LayoutView>
+        </NotFound>
+    </Router>
+</CascadingAuthenticationState>

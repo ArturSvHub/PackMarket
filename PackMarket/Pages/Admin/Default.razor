@@ -1,0 +1,12 @@
+﻿@page "/admin"
+@using PackMarket.Data.Static;
+
+<AuthorizeView Roles="@TemplateRoles.Admin">
+    <Authorized>
+        <p>Hello Admin</p>
+    </Authorized>
+    
+    <NotAuthorized>
+        <p>Hello there</p>
+    </NotAuthorized>
+</AuthorizeView>

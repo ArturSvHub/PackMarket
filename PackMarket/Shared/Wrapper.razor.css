@@ -1,0 +1,11 @@
+﻿.wrapper{
+    align-self:center;
+    max-width:1200px;
+    min-width:100%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:space-between;
+    padding:0;
+    margin:0;
+}
