@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PackMarket.Data.Models
 {
@@ -12,7 +13,8 @@ namespace PackMarket.Data.Models
         public string? Url { get; set; }
         public int? ParentId { get; set; }
         public int? Parent { get; set; }
+        [ForeignKey("ParentId")]
         public ICollection<Category>? Children { get; set; } = new List<Category>();
-        public ICollection<Product>? Products { get; set; }
+        public ICollection<Product>? Products { get; set; } = new List<Product>();
     }
 }

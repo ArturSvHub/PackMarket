@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using PackMarket.Data.Models;
 using PackMarket.Data;
-using PackMarket.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,14 +14,14 @@ namespace PackMarket.Pages.Admin
     public partial class CategoriesPage
     {
         [Inject][Parameter]
-        public MarketContext Context { get; set; }
+        public ApplicationDbContext Context { get; set; }
         List<Category> Categories { get; set; }
         private string _searchString;
         private bool _sortNameByLength;
         private List<string> _events = new();
         protected override async Task OnInitializedAsync()
         {
-            Categories = await Context.DbContext.Categories.ToListAsync();
+            Categories = await Context.Categories.ToListAsync();
         }
         private Func<Category, object> _sortBy => x =>
         {
@@ -65,15 +64,15 @@ namespace PackMarket.Pages.Admin
             {
                 categories.Add(new Category { Title= item,Url= tr.TranslateToUrl(item)});
             }
-            await Context.DbContext.AddRangeAsync(categories);
-            await Context.DbContext.SaveChangesAsync();
-            Categories = await Context.DbContext.Categories.ToListAsync();
+            await Context.AddRangeAsync(categories);
+            await Context.SaveChangesAsync();
+            Categories = await Context.Categories.ToListAsync();
         }
         async Task DeleteFake()
         {
-            Context.DbContext.Categories.RemoveRange(await Context.DbContext.Categories.ToListAsync());
-            await Context.DbContext.SaveChangesAsync();
-            Categories = await Context.DbContext.Categories.ToListAsync();
+            Context.Categories.RemoveRange(await Context.Categories.ToListAsync());
+            await Context.SaveChangesAsync();
+            Categories = await Context.Categories.ToListAsync();
         }
     }
 }

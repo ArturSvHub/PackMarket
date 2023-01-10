@@ -28,7 +28,7 @@ namespace PackMarket.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;
-        private readonly RoleManager<Role> _roleManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IUserStore<User> _userStore;
         private readonly IUserEmailStore<User> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
@@ -36,7 +36,7 @@ namespace PackMarket.Areas.Identity.Pages.Account
 
         public RegisterModel(
             UserManager<User> userManager,
-            RoleManager<Role> roleManager,
+            RoleManager<IdentityRole> roleManager,
             IUserStore<User> userStore,
             SignInManager<User> signInManager,
             ILogger<RegisterModel> logger,
@@ -113,9 +113,9 @@ namespace PackMarket.Areas.Identity.Pages.Account
                 //await _roleManager.CreateAsync(new IdentityRole(Roles.Admin));
                 //await _roleManager.CreateAsync(new IdentityRole(Roles.Moderator ));
                 //await _roleManager.CreateAsync(new IdentityRole(Roles.Customer ));
-                await _roleManager.CreateAsync(new Role { Name = TemplateRoles.Admin });
-                await _roleManager.CreateAsync(new Role { Name = TemplateRoles.Moderator });
-                await _roleManager.CreateAsync(new Role { Name = TemplateRoles.Customer });
+                await _roleManager.CreateAsync(new IdentityRole (TemplateRoles.Admin));
+                await _roleManager.CreateAsync(new IdentityRole(TemplateRoles.Moderator ));
+                await _roleManager.CreateAsync(new IdentityRole(TemplateRoles.Customer ));
             }
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();

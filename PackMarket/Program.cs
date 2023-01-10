@@ -12,18 +12,20 @@ using MudBlazor.Services;
 using PackMarket.Areas.Identity;
 using PackMarket.Data;
 using PackMarket.Data.Models;
-using PackMarket.Services;
 
 using System.Net;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContextFactory<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
+var SqlConnectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+var postgresConnectionString = builder.Configuration.GetConnectionString("PostgresConnection");
+//builder.Services.AddDbContextFactory<ApplicationDbContext>(options =>
+//    options.UseSqlServer(SqlConnectionString));
+builder.Services.AddDbContext<ApplicationDbContext>(opts =>
+    opts.UseNpgsql(postgresConnectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-builder.Services.AddIdentity<PackMarket.Data.Models.User, Role>(options => {
+builder.Services.AddIdentity<User, IdentityRole>(options => {
     options.SignIn.RequireConfirmedAccount = true;
     options.Password.RequiredLength = 5;
     options.Password.RequireNonAlphanumeric = false;
@@ -42,7 +44,6 @@ builder.Services.Configure<WebEncoderOptions>(options =>
     .TextEncoderSettings(System.Text.Unicode.UnicodeRanges.All);
 });
 builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<PackMarket.Data.Models.User>>();
-builder.Services.AddSingleton<MarketContext>();
 builder.Services.AddMudServices();
 builder.Services.Configure<ForwardedHeadersOptions>(options =>
 {
