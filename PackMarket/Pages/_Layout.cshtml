@@ -30,6 +30,26 @@
     </div>
 
     <script src="_framework/blazor.server.js"></script>
+    <script src="jquery/dist/jquery.min.js"></script>
     <script src="_content/MudBlazor/MudBlazor.min.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(function () {
+                $(window).scroll(function () {
+                    if ($(this).scrollTop() > 200) {
+                        $('.auth').addClass("auth-hidden");
+                    } else {
+                        $('.auth').removeClass("auth-hidden");
+                    }
+                    if ($(this).scrollTop() > 265) {
+                        $('.nav-wrapper').addClass("nav-wrapper-top");
+                    } else {
+                        $('.nav-wrapper').removeClass("nav-wrapper-top");
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>

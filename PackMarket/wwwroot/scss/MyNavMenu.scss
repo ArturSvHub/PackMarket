@@ -6,7 +6,15 @@
     justify-self: end;
     align-self: center;
     width: 100%;
+    height:60px;
     background-color: $primary-color;
+}
+
+.nav-wrapper-top {
+    position:fixed;
+    top:0;
+    z-index:2;
+    transition:ease 0.3s;
 }
 
 nav {
@@ -35,11 +43,12 @@ nav a {
     display: block;
     transition: .3s linear;
 }
+
 .navlink {
-    
+
     span {
         color: white;
-        padding:5px 0;
+        padding: 5px 0;
     }
 
     svg {
@@ -50,6 +59,7 @@ nav a {
         background-color: $third-color;
     }
 }
+
 .navlink-active {
     background-color: $secondary-color;
 
@@ -61,6 +71,7 @@ nav a {
         color: $accent3-color;
     }
 }
+
 .topmenu {
     display: flex;
     justify-content: center;

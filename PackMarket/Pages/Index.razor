@@ -2,24 +2,8 @@
 @using PackMarket.Extentions;
 
 <PageTitle>Домашняя</PageTitle>
-<LoginDisplay/>
 <div class="page index">
-    @*<Carousel/>*@
-    <input type="text" class="form-control" @bind="@input" />
-    <button class="btn btn-primary" @onclick=TranslateToRussian>На Русский</button>
-    <button class="btn btn-secondary" @onclick=TranslateToEnglish>На Английский</button>
-    <p>@output</p>
+    <Carousel/>
 </div>
 @code{
-    string input = "";
-    string output = "";
-    StringTransliterate transliterate = new StringTransliterate();
-    void TranslateToEnglish()
-    {
-        output = transliterate.TranslateToUrl(input);
-    }
-    void TranslateToRussian()
-    {
-        output = transliterate.TranslateToRussianWithCapl(input);
-    }
 }

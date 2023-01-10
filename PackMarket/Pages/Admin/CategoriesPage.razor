@@ -17,9 +17,11 @@
             <Column T="Category" Field="Title" Title="Название" SortBy="@_sortBy"/>
         </Columns>
         <PagerContent>
-            <MudDataGridPager T="Category"/>
+            <MudDataGridPager T="Category" PageSizeOptions="new int[]{5,10,20}" InfoFormat="{first_item}-{last_item} из {all_items}" RowsPerPageString="Строк на странице"/>
         </PagerContent>
     </MudDataGrid>
+<MudButton Class="header-contacts-button" OnClick="CreateFake">Создать фейковые категории</MudButton>
+<MudButton Class="header-contacts-button" OnClick="DeleteFake">Удалить фейковые категории</MudButton>
 @*</AuthorizeView>*@
 @code{
     

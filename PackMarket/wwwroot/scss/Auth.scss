@@ -1,0 +1,15 @@
+﻿.login, .logoff{
+    
+}
+.auth {
+    border: 1px dotted;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+}
+.auth-hidden{
+    display:none;
+}

@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using static MudBlazor.CategoryTypes;
 using MudBlazor;
+using PackMarket.Extentions;
 
 namespace PackMarket.Pages.Admin
 {
@@ -54,6 +55,25 @@ namespace PackMarket.Pages.Admin
         void SelectedItemsChanged(HashSet<Category> items)
         {
             _events.Insert(0, $"Event = SelectedItemsChanged, Data = {System.Text.Json.JsonSerializer.Serialize(items)}");
+        }
+        async Task CreateFake()
+        {
+            StringTransliterate tr = new();
+            List<string> strings = new List<string> { "Скотч", "Стретч" ,"Пленка","Коробки","Прочее"};
+            List<Category> categories = new List<Category>();
+            foreach (var item in strings)
+            {
+                categories.Add(new Category { Title= item,Url= tr.TranslateToUrl(item)});
+            }
+            await Context.DbContext.AddRangeAsync(categories);
+            await Context.DbContext.SaveChangesAsync();
+            Categories = await Context.DbContext.Categories.ToListAsync();
+        }
+        async Task DeleteFake()
+        {
+            Context.DbContext.Categories.RemoveRange(await Context.DbContext.Categories.ToListAsync());
+            await Context.DbContext.SaveChangesAsync();
+            Categories = await Context.DbContext.Categories.ToListAsync();
         }
     }
 }

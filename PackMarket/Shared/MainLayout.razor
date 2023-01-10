@@ -1,10 +1,18 @@
 ﻿@inherits LayoutComponentBase
 
 <PageTitle>PackMarket</PageTitle>
-<Header>
-    <MyNavMenu />
-</Header>
-<Wrapper>
-@Body
-</Wrapper>
-<Footer />
+<MudThemeProvider/>
+<MudDialogProvider/>
+<MudSnackbarProvider/>
+<MudLayout>
+    <MudMainContent>
+        <Header>
+            <MyNavMenu />
+        </Header>
+        <Wrapper>
+            @Body
+        </Wrapper>
+        <Footer />
+    </MudMainContent>
+</MudLayout>
+
