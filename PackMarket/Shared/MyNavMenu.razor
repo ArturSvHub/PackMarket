@@ -1,8 +1,10 @@
+@using Blazorise;
+
 <div class="nav-wrapper">
     <nav>
         <ul class="topmenu">
             <li>
-                <NavLink class="navlink" ActiveClass="navlink-active" href="catalog"><span>Каталог </span><MudIcon Icon="@Icons.Material.Filled.KeyboardArrowDown"></MudIcon></NavLink>
+                <NavLink class="navlink" ActiveClass="navlink-active" href="catalog"><span>Каталог </span><Icon Name="IconName.ChevronDown"></Icon></NavLink>
                 <ul class="submenu">
                     @foreach (var item in list1)
                     {
@@ -21,7 +23,7 @@
             <li><NavLink class="navlink" ActiveClass="navlink-active" href="new-products"><span>Новинки</span></NavLink></li>
             <li><NavLink class="navlink" ActiveClass="navlink-active" href="stocks"><span>Акции</span></NavLink></li>
             <li>
-                <NavLink class="navlink" ActiveClass="navlink-active" href="about"><span>О нас </span><MudIcon Icon="@Icons.Material.Filled.KeyboardArrowDown"></MudIcon></NavLink>
+                <NavLink class="navlink" ActiveClass="navlink-active" href="about"><span>О нас </span><Icon Name="IconName.ChevronDown"></Icon></NavLink>
                 <ul class="submenu">
                     <li><NavLink href="">Доставка</NavLink></li>
                     <li><NavLink href="">Оплата</NavLink></li>
@@ -31,8 +33,8 @@
 
             <li><NavLink class="navlink" ActiveClass="navlink-active" href="price"><span>Прайс-лист</span></NavLink></li>
             <li><NavLink class="navlink" ActiveClass="navlink-active" href="contacts"><span>Контакты</span></NavLink></li>
-            <li><NavLink class="navlink" href="admin/categories"><MudIcon Icon="@Icons.Material.Filled.Search" /></NavLink></li>
-            <li><NavLink class="navlink" ActiveClass="navlink-active" href="cart"><MudIcon Icon="@Icons.Material.Filled.ShoppingCart" /><MudBadge Content="5" /></NavLink></li>
+            <li><NavLink class="navlink" href="admin"><Icon Name="IconName.Search"></Icon></NavLink></li>
+            <li><NavLink class="navlink" ActiveClass="navlink-active" href="cart"><Icon Name="IconName.ShoppingCart"></Icon><Badge>5</Badge></NavLink></li>
         </ul>
     </nav>
 </div>

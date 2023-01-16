@@ -4,6 +4,8 @@
 <AuthorizeView Roles="@TemplateRoles.Admin">
     <Authorized>
         <p>Hello Admin</p>
+        <NavLink class="header-contacts-button" href="admin/categories">Категории</NavLink>
+        <NavLink class="header-contacts-button" href="admin/products">Товары</NavLink>
     </Authorized>
     
     <NotAuthorized>

@@ -12,9 +12,14 @@ namespace PackMarket.Data.Models
         [Required]
         public string? Url { get; set; }
         public int? ParentId { get; set; }
-        public int? Parent { get; set; }
-        [ForeignKey("ParentId")]
+        public Category? Parent { get; set; }
+        public int? OptionListId { get; set; }
+        [ForeignKey("OptionListId")]
+        public OptionList? OptionList { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime? ChangedAt { get; set; }
         public ICollection<Category>? Children { get; set; } = new List<Category>();
         public ICollection<Product>? Products { get; set; } = new List<Product>();
+        public string? ImagesPath { get; set; }
     }
 }

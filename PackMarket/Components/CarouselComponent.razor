@@ -1,0 +1,18 @@
+﻿<Carousel @bind-SelectedSlide="@selectedSlide" ShowControls="false" ShowIndicators="true" Interval="10000">
+    <CarouselSlide Name="1">
+        <Image Source="img/promo/promo-1.jpg" Text="First" Display="Display.Block" Width="Width.Is100"/>
+    </CarouselSlide>
+    <CarouselSlide Name="2">
+        <Image Source="img/promo/promo-2.jpg" Text="second" Display="Display.Block" Width="Width.Is100" />
+    </CarouselSlide>
+    <CarouselSlide Name="3">
+        <Image Source="img/promo/promo-3.jpg" Text="third" Display="Display.Block" Width="Width.Is100" />
+    </CarouselSlide>
+    <CarouselSlide Name="4">
+        <Image Source="img/promo/promo-4.jpg" Text="Fourth" Display="Display.Block" Width="Width.Is100" />
+    </CarouselSlide>
+</Carousel>
+
+@code {
+    string selectedSlide = "2";
+}

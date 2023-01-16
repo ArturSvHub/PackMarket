@@ -1,0 +1,73 @@
+﻿@page "/admin/categories"
+@using System.Globalization;
+
+<PageTitle>Категории</PageTitle>
+<DataGrid TItem="Category" Data="@Categories" @bind-SelectedRow="@selectedCategory"
+          SelectionMode="DataGridSelectionMode.Single"
+          SortMode="DataGridSortMode.Single"
+          PageSize="10"
+          ShowPager="true"
+          Responsive="true"
+          Filterable="true"
+          Resizable="true"
+          Hoverable="true"
+          ResizeMode="TableResizeMode.Columns"
+          Editable="true"
+          EditMode="DataGridEditMode.Popup"
+          NewItemDefaultSetter="@OnNewItemDefaultSetter"
+          CommandMode="DataGridCommandMode.ButtonRow">
+    <DataGridColumns>
+        <DataGridCommandColumn NewCommandAllowed="false" EditCommandAllowed="false" DeleteCommandAllowed="false">
+            <SaveCommandTemplate>
+                <Button ElementId="btnSave" Type="ButtonType.Submit" PreventDefaultOnSubmit Color="Color.Primary" @onclick="@(async ()=>{await context.Clicked.InvokeAsync(); await OnRowInserted(context.Item,parent);})">@context.LocalizationString</Button>
+            </SaveCommandTemplate>
+            <CancelCommandTemplate>
+                <Button ElementId="btnCancel" Color="Color.Secondary" Clicked="@context.Clicked">@context.LocalizationString</Button>
+            </CancelCommandTemplate>
+        </DataGridCommandColumn>
+        <DataGridColumn Field="@nameof(Category.Title)" Caption="Категория" Editable />
+        <DataGridSelectColumn Field="@nameof(Category.Parent)" Editable Caption="Родительская категория">
+            <DisplayTemplate>
+                @{
+                    Category? cat = Categories.FirstOrDefault(x => x.Id == context.ParentId);
+                } 
+                @if (cat != null)
+                {
+                    @cat.Title
+                }
+                else
+                {
+                    @String.Empty;
+                }
+
+            </DisplayTemplate>
+            <EditTemplate>
+                <Select TValue="int?" SelectedValue="@parent" SelectedValueChanged="@SelectedValueChanged">
+                    <SelectItem TValue="int?" Value="null">Без родительских категорий</SelectItem>
+                    @foreach (var item in Categories.Where(x => x.Parent == null).Where(x=>x!=context.Item))
+                    {
+                        <SelectItem Value="item.Id">@item.Title</SelectItem>
+                    }
+                </Select>
+            </EditTemplate>
+        </DataGridSelectColumn>
+        <DataGridDateColumn Field="@nameof(Category.CreatedAt)" Caption="Дата создания" DisplayFormatProvider="@CultureInfo.GetCultureInfo("ru-RU")">
+        </DataGridDateColumn>
+        <DataGridDateColumn Field="@nameof(Category.ChangedAt)" Caption="Дата изменения" DisplayFormatProvider="@CultureInfo.GetCultureInfo("ru-RU")">
+        </DataGridDateColumn>
+    </DataGridColumns>
+    <ButtonRowTemplate>
+        <Button Color="Color.Success" Clicked="context.NewCommand.Clicked">Создать</Button>
+        <Button Color="Color.Primary" Disabled="(selectedCategory is null)" Clicked="context.EditCommand.Clicked">Изменить</Button>
+        <Button Color="Color.Danger" Disabled="(selectedCategory is null)" Clicked="@(async ()=>{await context.DeleteCommand.Clicked.InvokeAsync(); await OnRowRemoved(context.DeleteCommand.Item.Id);})">Удалить</Button>
+        <Button Color="Color.Link" Clicked="context.ClearFilterCommand.Clicked">Очистить фильтр</Button>
+    </ButtonRowTemplate>
+</DataGrid>
+@code {
+    int? parent = null;
+    Task SelectedValueChanged(int? value)
+    {
+        parent = value;
+        return Task.CompletedTask;
+    }
+}

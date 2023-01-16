@@ -110,9 +110,6 @@ namespace PackMarket.Areas.Identity.Pages.Account
         {
             if(!await _roleManager.RoleExistsAsync(TemplateRoles.Admin))
             {
-                //await _roleManager.CreateAsync(new IdentityRole(Roles.Admin));
-                //await _roleManager.CreateAsync(new IdentityRole(Roles.Moderator ));
-                //await _roleManager.CreateAsync(new IdentityRole(Roles.Customer ));
                 await _roleManager.CreateAsync(new IdentityRole (TemplateRoles.Admin));
                 await _roleManager.CreateAsync(new IdentityRole(TemplateRoles.Moderator ));
                 await _roleManager.CreateAsync(new IdentityRole(TemplateRoles.Customer ));

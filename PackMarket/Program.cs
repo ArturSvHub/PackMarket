@@ -1,17 +1,17 @@
-using Microsoft.AspNetCore.Components;
+using Blazorise;
+using Blazorise.Icons.Material;
+using Blazorise.Material;
+
 using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.WebEncoders;
-
-using MudBlazor.Services;
 
 using PackMarket.Areas.Identity;
 using PackMarket.Data;
 using PackMarket.Data.Models;
+using PackMarket.Services;
 
 using System.Net;
 
@@ -37,6 +37,10 @@ builder.Services.AddIdentity<User, IdentityRole>(options => {
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
+builder.Services.AddBlazorise(opts =>
+{ opts.Immediate = true; })
+    .AddMaterialProviders()
+    .AddMaterialIcons();
 builder.Services.Configure<WebEncoderOptions>(options =>
 {
     options.TextEncoderSettings = new System
@@ -44,11 +48,12 @@ builder.Services.Configure<WebEncoderOptions>(options =>
     .TextEncoderSettings(System.Text.Unicode.UnicodeRanges.All);
 });
 builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<PackMarket.Data.Models.User>>();
-builder.Services.AddMudServices();
+
 builder.Services.Configure<ForwardedHeadersOptions>(options =>
 {
     options.KnownProxies.Add(IPAddress.Parse("127.0.0.1"));
 });
+builder.Services.AddScoped<DataCrudService>();
 
 var app = builder.Build();
 
