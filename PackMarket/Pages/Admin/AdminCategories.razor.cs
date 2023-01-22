@@ -24,7 +24,7 @@ namespace PackMarket.Pages.Admin
         private Category selectedCategory = new Category();
         protected override async Task OnInitializedAsync()
         {
-            Categories = await CrudService.GetCategories();
+            Categories = await CrudService.GetCategoriesAsync();
             await base.OnInitializedAsync();
         }
         async Task OnRowInserted(Category category,int? parent=null)
@@ -35,22 +35,22 @@ namespace PackMarket.Pages.Admin
                 category.CreatedAt = DateTime.UtcNow + UtcLabel;
                 category.Url = category.Title.TranslateToUrl();
                 category.ChangedAt = DateTime.UtcNow + UtcLabel;
-                await CrudService.SaveCategory(category);
+                await CrudService.SaveCategoryAsync(category);
             }
             else
             {
                 category.Url = category.Title.TranslateToUrl();
                 category.ChangedAt = DateTime.UtcNow + UtcLabel;
-                await CrudService.UpdateCategory(category);
+                await CrudService.UpdateCategoryAsync(category);
             }
             
-            Categories = await CrudService.GetCategories();
+            Categories = await CrudService.GetCategoriesAsync();
             StateHasChanged();
         }
         async Task OnRowRemoved(int id)
         {
-            await CrudService.DeleteCategory(id);
-            Categories = await CrudService.GetCategories();
+            await CrudService.DeleteCategoryAsync(id);
+            Categories = await CrudService.GetCategoriesAsync();
             StateHasChanged();
         }
         void OnNewItemDefaultSetter(Category category)

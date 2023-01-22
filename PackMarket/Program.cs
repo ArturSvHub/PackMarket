@@ -14,6 +14,7 @@ using PackMarket.Data.Models;
 using PackMarket.Services;
 
 using System.Net;
+using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,7 +26,9 @@ var postgresConnectionString = builder.Configuration.GetConnectionString("Postgr
 builder.Services.AddDbContext<ApplicationDbContext>(opts =>
     opts.UseNpgsql(postgresConnectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-builder.Services.AddIdentity<User, IdentityRole>(options => {
+builder.Services.AddCors(x => x.AddPolicy("External", policy => policy.WithOrigins("https://jsonip.com")));
+builder.Services.AddIdentity<User, IdentityRole>(options =>
+{
     options.SignIn.RequireConfirmedAccount = true;
     options.Password.RequiredLength = 5;
     options.Password.RequireNonAlphanumeric = false;
@@ -35,6 +38,7 @@ builder.Services.AddIdentity<User, IdentityRole>(options => {
     .AddDefaultTokenProviders()
     .AddDefaultUI()
     .AddEntityFrameworkStores<ApplicationDbContext>();
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddBlazorise(opts =>
@@ -56,7 +60,7 @@ builder.Services.Configure<ForwardedHeadersOptions>(options =>
 builder.Services.AddScoped<DataCrudService>();
 
 var app = builder.Build();
-
+app.UseCors("External");
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();

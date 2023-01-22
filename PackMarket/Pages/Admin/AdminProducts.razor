@@ -1,5 +1,6 @@
-﻿@page "/admin/products"
+﻿
 @using System.Globalization;
+@using PackMarket.Data.Enums;
 <PageTitle>Товары</PageTitle>
 <DataGrid TItem="Product" Data="@Products" @bind-SelectedRow="@selectedProduct"
           SelectionMode="DataGridSelectionMode.Single"
@@ -10,7 +11,7 @@
           Filterable="true"
           Resizable="true"
           Hoverable="true"
-          ResizeMode="TableResizeMode.Columns"
+          ResizeMode="TableResizeMode.Header"
           Editable="true"
           EditMode="DataGridEditMode.Popup"
           NewItemDefaultSetter="@OnNewItemDefaultSetter"
@@ -32,16 +33,18 @@
                 }
                 @if (cat != null)
                 {
-                    @cat.Title.ToString();
+                    @cat.Title.ToString()
+                    ;
                 }
                 else
                 {
-                    @String.Empty;
+                    @String.Empty
+                    ;
                 }
             </DisplayTemplate>
             <EditTemplate>
                 <Select TValue="int" @bind-SelectedValue="@catid">
-                    @if(context.Item?.CategoryId==null)
+                    @if (context.Item?.Category == null || context.Item.CategoryId == 0)
                     {
                         <SelectItem TValue="int" Value="tempcat.Id">@tempcat.Title</SelectItem>
                         @foreach (var item in Categories.Where(x => tempcat.Id != x.Id))
@@ -55,6 +58,32 @@
                         @foreach (var item in Categories.Where(x => context.Item.CategoryId != x.Id))
                         {
                             <SelectItem Value="item.Id">@item.Title</SelectItem>
+                        }
+                    }
+                </Select>
+            </EditTemplate>
+        </DataGridSelectColumn>
+        <DataGridSelectColumn Field="@nameof(Product.State)" Editable Caption="Состояние">
+            <DisplayTemplate>
+                @if (context.State == 0)
+                {
+                    @State.Draft
+                }
+                else
+                {
+                    @context.State
+                }
+            </DisplayTemplate>
+            <EditTemplate>
+                <Select TValue="Enum" @bind-bind-SelectedValue="@context.CellValue">
+                    @{
+                        State[] states = Enum.GetValues<State>();
+                        if (context.Item.State == 0)
+                        {
+                            foreach (var item in states)
+                            {
+                                <SelectItem TValue="Enum" Value="item">@item.ToString()</SelectItem>
+                            }
                         }
                     }
                 </Select>

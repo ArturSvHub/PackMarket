@@ -1,0 +1,64 @@
+﻿<Button Color="Color.Primary" Clicked="ShowModal">Изменить</Button>
+<Modal @ref="ModalRef">
+    @if (SelectedCategory == null || SelectedCategory.Id == 0)
+    {
+        <ModalContent Centered>
+            <ModalHeader>
+                <ModalTitle>Выберите категорию</ModalTitle>
+                <CloseButton />
+            </ModalHeader>
+            <ModalBody>
+            </ModalBody>
+            <ModalFooter>
+                <Button Color="Color.Secondary" Clicked="@HideModal">Закрыть</Button>
+            </ModalFooter>
+        </ModalContent>
+    }
+    else
+    {
+        <ModalContent Centered>
+            <ModalHeader>
+                <ModalTitle>@SelectedCategory.Title</ModalTitle>
+                <CloseButton />
+            </ModalHeader>
+            <ModalBody>
+                <Field>
+                    <FieldLabel>@SelectedCategory.Title</FieldLabel>
+                    <TextEdit @bind-Text="SelectedCategory.Title" />
+                </Field>
+                <Field>
+                    <FieldLabel>Родительская категория</FieldLabel>
+
+                    @if (SelectedCategory.Parent == null || SelectedCategory.ParentId == 0)
+                    {
+                        <Select TValue="int?" @bind-SelectedValue="@SelectedCategory.ParentId">
+                            <SelectItem>---Без категории---</SelectItem>
+                            @foreach (var item in Categories.Where(c => c.Parent == null).Where(c => c.Id != SelectedCategory.Id))
+                            {
+                                <SelectItem Value="item.Id">@item.Title</SelectItem>
+                            }
+                        </Select>
+                    }
+                    else
+                    {
+                        <Select TValue="int?" @bind-SelectedValue="@SelectedCategory.ParentId">
+                            <SelectItem Value="SelectedCategory.ParentId">@SelectedCategory.Parent.Title</SelectItem>
+                            <SelectItem Value="0">---Без категории---</SelectItem>
+                            @foreach (var item in Categories.Where(c => c.Parent == null).Where(x => x.Id != SelectedCategory.ParentId))
+                            {
+                                <SelectItem Value="item.Id">@item.Title</SelectItem>
+                            }
+                        </Select>
+                    }
+                    <Field>
+                        <FileEdit Multiple Changed="OnFiles" Filter="image/jpeg, image/png, image/gif" Placeholder="Выберите изображения для категории..." />
+                    </Field>
+                </Field>
+            </ModalBody>
+            <ModalFooter>
+                <Button Color="Color.Secondary" Clicked="@HideModal">Отменить</Button>
+                <Button Color="Color.Primary" Clicked="@SaveCategory">Сохранить</Button>
+            </ModalFooter>
+        </ModalContent>
+    }
+</Modal>

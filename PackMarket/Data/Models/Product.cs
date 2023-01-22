@@ -25,5 +25,7 @@ namespace PackMarket.Data.Models
         [ForeignKey("CategoryId")]
         public Category? Category { get; set; }
         public string? ImagesPath { get; set; }
+        [NotMapped]
+        public int Count { get; set; } = 1;
     }
 }

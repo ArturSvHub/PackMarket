@@ -20,8 +20,8 @@ namespace PackMarket.Pages.Admin
         private Product selectedProduct = new Product();
         protected override async Task OnInitializedAsync()
         {
-            Products = await CrudService.GetProducts();
-            Categories = await CrudService.GetCategories();
+            Products = await CrudService.GetProductsAsync();
+            Categories = await CrudService.GetCategoriesAsync();
             tempcat = Categories.FirstOrDefault();
             await base.OnInitializedAsync();
         }
@@ -39,22 +39,22 @@ namespace PackMarket.Pages.Admin
             {
                 product.CreatedAt = DateTime.UtcNow + UtcLabel;
                 product.Url = product.Name.TranslateToUrl();
-                await CrudService.Saveproduct(product);
+                await CrudService.SaveProductAsync(product);
             }
             else
             {
                 product.ChangedAt = DateTime.UtcNow + UtcLabel;
                 product.Url = product.Name.TranslateToUrl();
-                await CrudService.UpdateProduct(product);
+                await CrudService.UpdateProductAsync(product);
             }
 
-            Products = await CrudService.GetProducts();
+            Products = await CrudService.GetProductsAsync();
             StateHasChanged();
         }
         async Task OnRowRemoved(int id)
         {
-            await CrudService.DeleteProduct(id);
-            Products = await CrudService.GetProducts();
+            await CrudService.DeleteProductAsync(id);
+            Products = await CrudService.GetProductsAsync();
             StateHasChanged();
         }
         void OnNewItemDefaultSetter(Product product)

@@ -1,0 +1,35 @@
+﻿<Button Color="Color.Success" Clicked="ShowModal">Создать</Button>
+<Modal @ref="ModalRef">
+    <Form>
+        <ModalContent Centered>
+            <ModalHeader>
+                <ModalTitle>Новая Категория</ModalTitle>
+                <CloseButton />
+            </ModalHeader>
+            <ModalBody>
+
+                <Field>
+                    <FieldLabel>Название</FieldLabel>
+                    <TextEdit Placeholder="Введите название..." @bind-Text="Category.Title" />
+                </Field>
+                <Field>
+                    <FieldLabel>Родительская категория</FieldLabel>
+                    <Select TValue="int?" @bind-SelectedValue="@Category.ParentId">
+                        <SelectItem>---Без категории---</SelectItem>
+                        @foreach (var item in Categories)
+                        {
+                            <SelectItem Value="item.Id">@item.Title</SelectItem>
+                        }
+                    </Select>
+                </Field>
+                <Field>
+                    <FileEdit Multiple Changed="OnFiles" Filter="image/jpeg, image/png, image/gif" Placeholder="Выберите изображения для категории..."/>
+                </Field>
+            </ModalBody>
+            <ModalFooter>
+                <Button Color="Color.Secondary" Clicked="@HideModal">Отменить</Button>
+                <Button Color="Color.Primary" Clicked="@SaveCategory">Сохранить</Button>
+            </ModalFooter>
+        </ModalContent>
+    </Form>
+</Modal>

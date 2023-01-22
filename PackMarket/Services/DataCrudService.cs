@@ -15,23 +15,32 @@ namespace PackMarket.Services
         {
             this.dbContext = dbContext;
         }
-        public async Task<List<Category>> GetCategories()
+        //Categories
+        public async Task<List<Category>> GetCategoriesAsync()
         {
             return await dbContext.Categories.ToListAsync();
         }
-        public async Task SaveCategory(Category category)
+        public async Task<Category> GetCategory(int id)
+        {
+            return await dbContext.Categories.FirstOrDefaultAsync(c => c.Id == id);
+        }
+        public async Task<Category> GetCategory(string url)
+        {
+            return await dbContext.Categories.FirstOrDefaultAsync(c => c.Url==url);
+        }
+        public async Task SaveCategoryAsync(Category category)
         {
             
             await dbContext.Categories.AddAsync(category);
             await dbContext.SaveChangesAsync();
         }
-        public async Task UpdateCategory(Category category)
+        public async Task UpdateCategoryAsync(Category category)
         {
            
             dbContext.Categories.Update(category);
             await dbContext.SaveChangesAsync();
         }
-        public async Task DeleteCategory(int id)
+        public async Task DeleteCategoryAsync(int id)
         {
             var category = await dbContext.Categories.FindAsync(id);
             if(category != null)
@@ -40,29 +49,34 @@ namespace PackMarket.Services
                 await dbContext.SaveChangesAsync();
             }
         }
-
-        internal async Task<List<Product>> GetProducts()
+        //Products
+        internal async Task<List<Product>> GetProductsAsync()
         {
             return await dbContext.Products.ToListAsync();
         }
 
-        internal async Task Saveproduct(Product product)
+        internal async Task SaveProductAsync(Product product)
         {
             await dbContext.Products.AddAsync(product);
             await dbContext.SaveChangesAsync();
         }
 
-        internal async Task UpdateProduct(Product product)
+        internal async Task UpdateProductAsync(Product product)
         {
             dbContext.Products.Update(product);
             await dbContext.SaveChangesAsync();
         }
 
-        internal async Task DeleteProduct(int id)
+        internal async Task DeleteProductAsync(int id)
         {
             var prod= await dbContext.Products.FindAsync(id);
             dbContext.Remove(prod);
             await dbContext.SaveChangesAsync();
+        }
+
+        internal async Task<List<Tag>> GetTags()
+        {
+            return await dbContext.Tags.ToListAsync(); 
         }
     }
 }

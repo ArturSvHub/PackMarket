@@ -1,0 +1,62 @@
+﻿
+@using System.Globalization;
+<div class="adminpage">
+    <div class="adminpage-header admin-header">
+        <div class="adminpage-title">
+            <p>Категории</p>
+        </div>
+        <div class="admin-buttons">
+            <Button Class="header-contacts-button">Удалить Категорию</Button>
+            <Button Class="header-contacts-button">Добавить</Button>
+        </div>
+    </div>
+    <div class="adminpage-items admin-items">
+        <PageTitle>Категории</PageTitle>
+        <DataGrid TItem="Category" Data="@Categories" @bind-SelectedRow="@selectedCategory"
+                  SelectionMode="DataGridSelectionMode.Single"
+                  SortMode="DataGridSortMode.Single"
+                  PageSize="10"
+                  ShowPager="true"
+                  Responsive="true"
+                  Filterable="true"
+                  Resizable="true"
+                  Hoverable="true"
+                  ResizeMode="TableResizeMode.Columns"
+                  Editable="true"
+                  EditMode="DataGridEditMode.Inline"
+                  NewItemDefaultSetter="@OnNewItemDefaultSetter"
+                  CommandMode="DataGridCommandMode.ButtonRow">
+            <DataGridColumns>
+                <DataGridColumn Field="@nameof(Category.Title)" Caption="Категория" />
+                <DataGridSelectColumn Field="@nameof(Category.Parent)" Caption="Родительская категория">
+                    <DisplayTemplate>
+                        @{
+                            Category? cat = Categories.FirstOrDefault(x => x.Id == context.ParentId);
+                        }
+                        @if (cat != null)
+                        {
+                            @cat.Title
+                        }
+                        else
+                        {
+                            @String.Empty
+                            ;
+                        }
+
+                    </DisplayTemplate>
+                    
+                </DataGridSelectColumn>
+                <DataGridDateColumn Field="@nameof(Category.CreatedAt)" Caption="Дата создания" DisplayFormatProvider="@CultureInfo.GetCultureInfo("ru-RU")">
+                </DataGridDateColumn>
+                <DataGridDateColumn Field="@nameof(Category.ChangedAt)" Caption="Дата изменения" DisplayFormatProvider="@CultureInfo.GetCultureInfo("ru-RU")">
+                </DataGridDateColumn>
+            </DataGridColumns>
+            <ButtonRowTemplate>
+                <CategoryCreate Categories="Categories" DataContext="CrudService" UpdateState="ChangeCategories" />
+                <CategoryEdit SelectedCategory="selectedCategory" Categories="Categories" DataContext="CrudService" UpdateState="ChangeCategories"/>
+                <Button Color="Color.Danger" Disabled="(selectedCategory is null)" Clicked="@(async ()=>{await context.DeleteCommand.Clicked.InvokeAsync(); await OnRowRemoved(context.DeleteCommand.Item);})">Удалить</Button>
+                <Button Color="Color.Light" Clicked="context.ClearFilterCommand.Clicked">Очистить фильтр</Button>
+            </ButtonRowTemplate>
+        </DataGrid>
+    </div>
+</div>

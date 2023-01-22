@@ -16,5 +16,9 @@ namespace PackMarket.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Tag> Tags { get; set; }
+        public DbSet<Option> Options { get; set; }
+        public DbSet<OptionList> OptionLists { get; set; }
+        public DbSet<Promo> Promos { get; set; }
+        public DbSet<Cart> Carts { get; set; }
     }
 }
