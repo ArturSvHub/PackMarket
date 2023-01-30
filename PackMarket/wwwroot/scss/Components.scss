@@ -1,0 +1,9 @@
+﻿@import 'variables.scss';
+.product-card-container{
+    align-self:stretch;
+    display:flex;
+    flex-wrap:wrap;
+}
+.product-card {
+    width: 24%;
+}

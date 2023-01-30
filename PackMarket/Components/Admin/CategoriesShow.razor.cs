@@ -56,7 +56,6 @@ namespace PackMarket.Components.Admin
         private void SetActive(string page)
             => currentPage = page;
         //--------------------------------
-        string title;
         private TimeSpan UtcLabel = new(3, 0, 0);
         [Inject][Parameter] public DataCrudService CrudService { get; set; }
         [Inject] public NavigationManager NavigationManager { get; set; }

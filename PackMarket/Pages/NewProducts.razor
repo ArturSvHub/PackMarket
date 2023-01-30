@@ -4,18 +4,13 @@
 
 <div class="page new-products">
     <h3>Новинки</h3>
-    @{
-        Task.Delay(1000);
-    }
-    <label>@s</label>
-    
-</div>
-@code{
-    protected override async Task OnInitializedAsync()
+    @if(Products==null||Products.Count==0)
     {
-            
+        <p>Тут пока ничего нет</p>
+    }
+    else
+    {
+        <ProductCardContainer Products="Products" Files="ProductFiles"/>
         
     }
-    string s;
-    
-}
+</div>

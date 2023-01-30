@@ -1,7 +1,8 @@
-﻿<AuthorizeView>
+﻿@*Identity/Account/Manage*@
+<AuthorizeView>
     <Authorized>
         <div class="login @Class">
-            <a href="Identity/Account/Manage">Привет, @(context.User.Identity?.Name!.Split("@")[0])</a>
+            <a href="">Привет, @(context.User.Identity?.Name!.Split("@")[0])</a>
             <form method="post" action="Identity/Account/LogOut">
                 <button type="submit" class="nav-link btn btn-link">Выйти</button>
             </form>

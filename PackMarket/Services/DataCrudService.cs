@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 using PackMarket.Data;
 using PackMarket.Data.Models;
+using PackMarket.Data.ViewModels;
 using PackMarket.Extentions;
 
 namespace PackMarket.Services
@@ -14,6 +15,10 @@ namespace PackMarket.Services
         public DataCrudService(ApplicationDbContext dbContext)
         {
             this.dbContext = dbContext;
+        }
+        public async Task<List<Category>> GetCategoriesAndProductsAsync()
+        {
+            return await dbContext.Categories.Include(c => c.Products).ToListAsync();
         }
         //Categories
         public async Task<List<Category>> GetCategoriesAsync()
@@ -54,7 +59,10 @@ namespace PackMarket.Services
         {
             return await dbContext.Products.ToListAsync();
         }
-
+        internal async Task<List<Product>> GetProductsOrderedByUrlAsync()
+        {
+            return await dbContext.Products.OrderBy(p=>p.Url).ToListAsync();
+        }
         internal async Task SaveProductAsync(Product product)
         {
             await dbContext.Products.AddAsync(product);

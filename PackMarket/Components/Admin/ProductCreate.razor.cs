@@ -16,6 +16,7 @@ namespace PackMarket.Components.Admin
         [Parameter] public EventCallback UpdateState { get; set; }
         [Parameter] public List<Category> Categories { get; set; }
         [Parameter] public DataCrudService DataContext { get; set; }
+        private bool isDisabled=true;
         private Product? Product { get; set; }
         public Modal? ModalRef;
         TimeSpan UtcLabel = new TimeSpan(3, 0, 0);
@@ -46,6 +47,7 @@ namespace PackMarket.Components.Admin
         async Task SaveProduct()
         {
             Product.CreatedAt = DateTime.UtcNow + UtcLabel;
+            Product.State = Data.Enums.State.Draft;
             Product.Url = Product.Name.TranslateToUrl();
             Product.ImagesPath = Path.Combine("img", "products", Product.Url);
             string path = Path.Combine(Environment.CurrentDirectory, "wwwroot", Product.ImagesPath);
@@ -75,6 +77,12 @@ namespace PackMarket.Components.Admin
             files = new();
             await UpdateState.InvokeAsync();
             await HideModal();
+        }
+        private Task SelectedValueChanged(int value)
+        {
+            Product.CategoryId = value;
+            isDisabled= false;
+            return Task.CompletedTask;
         }
     }
 }

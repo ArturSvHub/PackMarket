@@ -16,7 +16,7 @@ namespace PackMarket.Components.Admin
         TimeSpan UtcLabel = new TimeSpan(3, 0, 0);
         List<IFileEntry?> files= new List<IFileEntry?>();
         //-------------
-        protected override async Task OnInitializedAsync()
+        protected override void OnInitialized()
         {
             Category = new Category();
         }

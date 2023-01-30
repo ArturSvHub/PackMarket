@@ -2,13 +2,20 @@
     
 }
 .auth {
-    border: 1px dotted;
     position: fixed;
     top: 20px;
-    right: 20px;
+    left: 20px;
     padding: 5px;
     display: flex;
     flex-direction: column;
+
+    a {
+        color: black;
+    }
+
+    form button{
+        color: black;
+    }
 }
 .auth-hidden{
     display:none;

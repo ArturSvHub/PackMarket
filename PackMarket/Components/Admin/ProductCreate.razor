@@ -1,4 +1,5 @@
-﻿<Button Color="Color.Success" Clicked="ShowModal">Создать</Button>
+﻿@using Blazorise.Components
+<Button Color="Color.Success" Clicked="ShowModal">Создать</Button>
 <Modal @ref="ModalRef">
     <Form>
         <ModalContent Centered>
@@ -13,13 +14,15 @@
                     <TextEdit Placeholder="Введите название..." @bind-Text="Product.Name" />
                 </Field>
                 <Field>
+                    <FieldLabel>Описание</FieldLabel>
+                    <MemoEdit AutoSize Placeholder="Введите описание..." @bind-Text="Product.Description"/>
+                </Field>
+                <Field>
                     <FieldLabel>Категория</FieldLabel>
-                    <Select TValue="int" @bind-SelectedValue="@Product.CategoryId">
-                        @foreach (var item in Categories)
-                        {
-                            <SelectItem Value="item.Id">@item.Title</SelectItem>
-                        }
-                    </Select>
+                    <SelectList TItem="Category" SelectedValue="Product.CategoryId" SelectedValueChanged="@SelectedValueChanged" TValue="int" Data="@Categories" TextField="@((item)=>item.Title)" ValueField="@((item)=>item.Id)"
+                         DefaultItemText="Выберите категорию" DefaultItemHidden DefaultItemDisabled>
+
+                    </SelectList>
                 </Field>
                 <Field>
                     <FileEdit Multiple Changed="OnFiles" Filter="image/jpeg, image/png, image/gif" Placeholder="Выберите изображения для категории..." />
@@ -27,7 +30,7 @@
             </ModalBody>
             <ModalFooter>
                 <Button Color="Color.Secondary" Clicked="@HideModal">Отменить</Button>
-                <Button Color="Color.Primary" Clicked="@SaveProduct">Сохранить</Button>
+                    <Button Color="Color.Primary" Disabled="isDisabled" Clicked="@SaveProduct">Сохранить</Button>
             </ModalFooter>
         </ModalContent>
     </Form>

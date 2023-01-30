@@ -1,33 +1,18 @@
 ﻿@page "/"
-@using PackMarket.Extentions;
-@using System.Net;
-@inject IJSRuntime jsRuntime
 
 <PageTitle>Домашняя</PageTitle>
 <div class="page index">
     <CarouselComponent/>
-    <h1>@ip</h1>
-@*    <button @onclick="ChangeStorage">Задать</button>
-    <button @onclick="Update">Обновить</button>
-    <button @onclick="Clear">Очистить</button>*@
+    @*<h1>@ip</h1>*@
+    <AfterCarousel/>
+    <div class="catalog-heading">
+        <h4>Каталог товаров</h4>
+        <div></div>
+    </div>
+    <p>Поставка широкого спектра товаров и промышленного оборудования
+        как для корпоративных клиентов так и для частных лиц. 
+        Профессионализм и ответственность ключевые преимущества нашей компании.
+    </p>
+    <MainCatalog/>
+    
 </div>
-@code{
-    string ip;
-    protected override async Task OnInitializedAsync()
-    {
-        ip = await GetIpAddress();
-    }
-    public async Task<string> GetIpAddress()
-    {
-        try
-        {
-            var ipAddress = await jsRuntime.InvokeAsync<string>("getIpAddress").ConfigureAwait(true);
-            return ipAddress;
-        }
-        catch(Exception)
-        {
-            return string.Empty;
-        }
-    }
-
-}
