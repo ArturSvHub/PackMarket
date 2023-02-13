@@ -1,6 +1,13 @@
 ﻿@page "/catalog"
+@using PackMarket.Components.CatalogComponents
 <PageTitle>Каталог</PageTitle>
 
 <div class="page catalog">
     <h3>Каталог</h3>
+    <div class="main-catalog">
+        @if(Categories!=null)
+        {
+            <MainCatalog WithSidebar=true Categories="Categories" />
+        }
+    </div>
 </div>

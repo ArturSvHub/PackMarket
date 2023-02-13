@@ -11,6 +11,6 @@ namespace PackMarket.Components
     public partial class ProductCardContainer : ComponentBase
     {
         [Parameter] public List<Product> Products { get; set; }
-        [Parameter] public FileInfo[] Files { get; set; }
+        [Parameter] public List<DirectoryInfo> Directories { get; set; }
     }
 }

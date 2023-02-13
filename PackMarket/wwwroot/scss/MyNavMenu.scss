@@ -114,13 +114,12 @@ nav a {
 }
 
 .submenu {
+    
     position: absolute;
     z-index: 5;
     min-width: 200px;
     background: white;
     border-top: 1px solid #CBCBCC;
-    border-left: 1px solid #CBCBCC;
-    border-right: 1px solid #CBCBCC;
     visibility: hidden;
     opacity: 0;
     transform-origin: 0% 0%;
@@ -130,6 +129,7 @@ nav a {
 
 .submenu li {
     position: relative;
+    list-style-type: none;
 }
 
 .submenu li a {

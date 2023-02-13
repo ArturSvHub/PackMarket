@@ -6,16 +6,21 @@
             <li>
                 <NavLink class="navlink" ActiveClass="navlink-active" href="catalog"><span>Каталог </span><Icon Name="IconName.ChevronDown"></Icon></NavLink>
                 <ul class="submenu">
-                    @foreach (var item in list1)
+                    <li><a href="new-products">Новинки</a></li>
+                    <li><a href="stocks">Акции</a></li>
+                    @foreach (var cat in Categories.Where(c=>c.Parent==null))
                     {
                         <li>
-                            <a href="">@item</a>
+                            <a href="@cat.Url">@cat.Title</a>
+                            @if(cat.Children!=null)
+                            {
                             <ul class="submenu">
-                                @foreach (var val in list2)
+                                @foreach (var chCat in cat.Children)
                                 {
-                                    <li><a href="">@val</a></li>
+                                        <li><a href="@chCat.Url">@chCat.Title</a></li>
                                 }
                             </ul>
+                            }
                         </li>
                     }
                 </ul>
@@ -45,15 +50,5 @@
     {
         NavigationManager.NavigateTo("catalog");
     }
-
-    List<string> list1 = new();
-    List<string> list2 = new();
-    protected override void OnInitialized()
-    {
-        for (int i = 0; i < 15; i++)
-        {
-            list1.Add($"категория товара {i}");
-            list2.Add($"товар {i} внутри");
-        }
-    }
+    [Parameter]public List<Category> Categories { get; set; }
 }

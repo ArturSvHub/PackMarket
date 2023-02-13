@@ -4,10 +4,6 @@
         <div class="adminpage-title">
             <p>Товары</p>
         </div>
-        <div class="admin-buttons">
-            <Button Class="header-contacts-button">Удалить Категорию</Button>
-            <Button Class="header-contacts-button">Добавить</Button>
-        </div>
     </div>
     <div class="adminpage-items admin-items">
         <PageTitle>Товары</PageTitle>
@@ -27,23 +23,29 @@
                   CommandMode="DataGridCommandMode.ButtonRow">
             <DataGridColumns>
                 <DataGridColumn Field="@nameof(Product.Name)" Caption="Товар" />
-                <DataGridColumn Field="@nameof(Product.State)" Caption="Состояние"/>
+                <DataGridColumn Field="@nameof(Product.State)" Caption="Состояние" />
                 <DataGridColumn Field="@nameof(Product.Tags)" Caption="Метка">
                     <DisplayTemplate>
-                        @if (Tags.Count>0)
+                        @if (context.Tags.Count > 0)
                         {
-                            @foreach (var tag in Tags)
+                            @foreach (var tag in context.Tags)
                             {
-                                @tag.Name;
+                                @($"{tag.Name} ")
+                                ;
                             }
-                        }else{@("Нет меток");}
-                            </DisplayTemplate>
+                        }
+                        else
+                        {
+                            @("Нет меток")
+                            ;
+                        }
+                    </DisplayTemplate>
                 </DataGridColumn>
                 <DataGridColumn Field="@nameof(Product.Category)" Caption="Категория">
                     <DisplayTemplate>@Categories.FirstOrDefault(c=>c.Id==context.CategoryId).Title</DisplayTemplate>
                 </DataGridColumn>
                 <DataGridColumn Field="@nameof(Product.Description)" Caption="Описание">
-                    </DataGridColumn>
+                </DataGridColumn>
                 <DataGridNumericColumn Field="@nameof(Product.RetailPrice)" Caption="Розничная Цена"></DataGridNumericColumn>
                 <DataGridNumericColumn Field="@nameof(Product.PurshasePrice)" Caption="Закупочная Цена"></DataGridNumericColumn>
                 <DataGridDateColumn Field="@nameof(Product.CreatedAt)" Caption="Дата создания" DisplayFormatProvider="@CultureInfo.GetCultureInfo("ru-RU")">
@@ -53,7 +55,10 @@
             </DataGridColumns>
             <ButtonRowTemplate>
                 <ProductCreate Categories="Categories" DataContext="CrudService" UpdateState="ChangeProducts" />
-                <ProductEdit/>
+                @if (selectedProduct!=null&&selectedProduct.Id > 0)
+                {
+                    <ProductEdit Categories="Categories" DataContext="CrudService" UpdateState="ChangeProducts" SelectedProduct="selectedProduct" Tags="Tags" />
+                }
                 <Button Color="Color.Danger" Disabled="(selectedProduct is null)" Clicked="@(async ()=>{await context.DeleteCommand.Clicked.InvokeAsync(); await OnRowRemoved(context.DeleteCommand.Item);})">Удалить</Button>
                 <Button Color="Color.Light" Clicked="context.ClearFilterCommand.Clicked">Очистить фильтр</Button>
             </ButtonRowTemplate>

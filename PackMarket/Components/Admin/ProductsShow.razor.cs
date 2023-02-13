@@ -24,8 +24,8 @@ namespace PackMarket.Components.Admin
         protected override async Task OnInitializedAsync()
         {
             Categories = await CrudService.GetCategoriesAsync();
-            Products = await CrudService.GetProductsAsync();
-            Tags = await CrudService.GetTags();
+            Products = await CrudService.GetProductsTagsAsync();
+            Tags = await CrudService.GetTagsAsync();
             await base.OnInitializedAsync();
         }
         async Task OnRowRemoved(Product product)

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
+using PackMarket.Data.Models;
 using PackMarket.Data.ViewModels;
 using PackMarket.Services;
 
@@ -8,15 +9,16 @@ namespace PackMarket.Pages
 {
     public partial class Index:ComponentBase
     {
-        //[Inject]public DataCrudService DbContext { get; set; }
+        [Inject]public RepositoryService Repository { get; set; }
         [Inject] public IJSRuntime? jsRuntime{ get; set; }
-        public PageView Page { get; set; } = new();
-
+        [Parameter] public List<Category> Categories { get; set; }
+        public List<Category> MainCategories { get; set; }
         string ip;
-        protected override async Task OnInitializedAsync()
+
+        protected override void OnInitialized()
         {
-            ip = await GetIpAddress();
-            //Page.Categories = await DbContext.GetCategoriesAndProductsAsync();
+            MainCategories = Repository.Categories.Where(c => c.Parent == null).ToList();
+            
         }
         public async Task<string> GetIpAddress()
         {
@@ -30,5 +32,6 @@ namespace PackMarket.Pages
                 return string.Empty;
             }
         }
+
     }
 }

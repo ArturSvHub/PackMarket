@@ -6,8 +6,6 @@
             <p>Категории</p>
         </div>
         <div class="admin-buttons">
-            <Button Class="header-contacts-button">Удалить Категорию</Button>
-            <Button Class="header-contacts-button">Добавить</Button>
         </div>
     </div>
     <div class="adminpage-items admin-items">
@@ -15,13 +13,13 @@
         <DataGrid TItem="Category" Data="@Categories" @bind-SelectedRow="@selectedCategory"
                   SelectionMode="DataGridSelectionMode.Single"
                   SortMode="DataGridSortMode.Single"
-                  PageSize="10"
+                  PageSize="50"
                   ShowPager="true"
                   Responsive="true"
                   Filterable="true"
                   Resizable="true"
                   Hoverable="true"
-                  ResizeMode="TableResizeMode.Columns"
+                  ResizeMode="TableResizeMode.Header"
                   Editable="true"
                   EditMode="DataGridEditMode.Inline"
                   NewItemDefaultSetter="@OnNewItemDefaultSetter"
@@ -40,7 +38,6 @@
                         else
                         {
                             @String.Empty
-                            ;
                         }
 
                     </DisplayTemplate>

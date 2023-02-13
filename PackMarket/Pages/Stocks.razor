@@ -3,4 +3,13 @@
 
 <div class="page stocks">
     <h3>Акции</h3>
+    @if (Products == null || Products.Count == 0)
+    {
+        <p>Тут пока ничего нет</p>
+    }
+    else
+    {
+        <ProductCardContainer Products="Products" Directories="Directories" />
+
+    }
 </div>

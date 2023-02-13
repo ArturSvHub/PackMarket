@@ -1,0 +1,29 @@
+﻿@page "/{PageUri}"
+
+<PageTitle>@PageUri</PageTitle>
+
+<div class="catalog-card-container">
+    @if (Category == null)
+    {
+        <p>Что-то пошло не так</p>
+    }
+    else if (Catalog.Count>0)
+    {
+        @foreach (var item in Catalog)
+        {
+            <IndexCard ImagePath="@item.CategoryImagePath" Caption="@item.CategoryTitle" Href="@item.CategoryUrl" @onclick=""/>
+        }
+    }
+    else if(Category.Products!=null||Category.Products.Count>0)
+    {
+        @for (int i = 0; i < Category.Products.Count; i++)
+        {
+            <ProductCard Product="Category.Products.ToList()[i]" Directory="directories[i]"/>
+        }
+
+    }
+    else
+    {
+        <p>В этой категории пока нет товаров</p>
+    }
+</div>

@@ -1,11 +1,10 @@
 ﻿.wrapper{
     align-self:center;
-    max-width:1200px;
-    min-width:100%;
+    width:1200px;
     display:flex;
     flex-direction:column;
     align-items:center;
-    justify-content:space-between;
+    justify-content:center;
     padding:0;
     margin:0;
 }

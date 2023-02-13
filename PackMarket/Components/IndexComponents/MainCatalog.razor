@@ -1,4 +1,10 @@
-﻿<div class="catalog-card-container">
+﻿@using PackMarket.Components.CatalogComponents
+@if (WithSidebar)
+{
+    <CatalogSideBar Categories="Categories" />
+}
+<div class="catalog-card-container">
+    
     <IndexCard ImagePath="img/icons/new.png" Caption="Новинки" Href="new-products" />
     <IndexCard ImagePath="img/icons/sale.png" Caption="Акции" Href="stocks" />
     @foreach (var item in Catalog)

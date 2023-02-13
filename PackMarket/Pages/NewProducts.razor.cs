@@ -13,15 +13,17 @@ namespace PackMarket.Pages
     {
         [Inject] DataCrudService DbContext { get; set; }
         public List<Product> Products { get; set; }
-        DirectoryInfo ProductsDirectory = new DirectoryInfo(Path.Combine(Environment.CurrentDirectory,"wwwroot","img","products"));
+        List<DirectoryInfo> Directories = new List<DirectoryInfo>();
         public FileInfo[] ProductFiles { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
-            Products = await DbContext.GetProductsOrderedByUrlAsync();
-            if(ProductsDirectory !=null||ProductsDirectory.Exists)
+            var tag = await DbContext.GetTagByNameAsync("new");
+            Products = await DbContext.GetProductsTagsAsync();
+            Products = Products.Where(p=>p.Tags.Contains(tag)).ToList();
+            foreach (var item in Products)
             {
-                ProductFiles = ProductsDirectory.GetFiles("*", SearchOption.AllDirectories);
+                Directories.Add(new DirectoryInfo(Path.Combine(Environment.CurrentDirectory, "wwwroot", "img", "products",item.Url)));
             }
         }
     }

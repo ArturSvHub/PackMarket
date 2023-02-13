@@ -19,12 +19,13 @@ using System.Text.Json;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-var SqlConnectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-var postgresConnectionString = builder.Configuration.GetConnectionString("PostgresConnection");
+var defaultConnection = builder.Configuration.GetConnectionString("DefaultConnection");
+var postgresConnection = builder.Configuration.GetConnectionString("PostgresConnection");
+var postgres2Connection = builder.Configuration.GetConnectionString("Postgres2Connection");
 //builder.Services.AddDbContextFactory<ApplicationDbContext>(options =>
 //    options.UseSqlServer(SqlConnectionString));
 builder.Services.AddDbContext<ApplicationDbContext>(opts =>
-    opts.UseNpgsql(postgresConnectionString));
+    opts.UseNpgsql(postgres2Connection));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddCors(x => x.AddPolicy("External", policy => policy.WithOrigins("https://jsonip.com")));
 builder.Services.AddIdentity<User, IdentityRole>(options =>
@@ -58,6 +59,7 @@ builder.Services.Configure<ForwardedHeadersOptions>(options =>
     options.KnownProxies.Add(IPAddress.Parse("127.0.0.1"));
 });
 builder.Services.AddScoped<DataCrudService>();
+builder.Services.AddScoped<RepositoryService>();
 
 var app = builder.Build();
 app.UseCors("External");

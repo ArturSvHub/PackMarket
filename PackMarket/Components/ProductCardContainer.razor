@@ -1,6 +1,6 @@
 ﻿<div class="product-card-container">
     @for (int i = 0; i < Products.Count; i++)
     {
-        <ProductCard Product="@Products[i]" ImagePath="@($"img/products/{Products[i].Url}/{Files[i].Name}")" />
+        <ProductCard Product="@Products[i]" Directory="@Directories[i]"/>
     }
 </div>

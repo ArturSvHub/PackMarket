@@ -1,4 +1,6 @@
-﻿<div class="header">
+﻿@using PackMarket.Services;
+@inject DataCrudService dbContext
+<div class="header">
     <div class="header-info">
         <div class="logo">
             <a href="">
@@ -16,7 +18,6 @@
                 <p class="email">test@test.ru</p>
             </div>
             <div>
-                <LoginDisplay Class="@Class"/>
                 <button class="header-contacts-button">
                     Заказать звонок
                 </button>
@@ -24,12 +25,8 @@
             
         </div>
     </div>
-    @ChildContent
-</div>
-@code{
-    string Class = "auth";
-    void Scroll()
+    @if (Repository.Categories!= null)
     {
-        Class = "auth-hidden";
+        <MyNavMenu Categories="Repository.Categories" />
     }
-}
+</div>

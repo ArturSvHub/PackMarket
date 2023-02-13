@@ -1,0 +1,27 @@
+﻿@inherits LayoutComponentBase
+@using PackMarket.Components.Admin
+@using PackMarket.Data.Static;
+
+<PageTitle>Admin</PageTitle>
+<AuthorizeView Roles="@TemplateRoles.Admin">
+    <Authorized>
+        <p>Hello Admin</p>
+        <LoginDisplay />
+        <div class="wrapper-admin">
+            <AdminSidebar/>
+            <div class="main-admin">
+                @Body
+            </div>
+        </div>
+
+    </Authorized>
+
+    <NotAuthorized>
+        <p>Hello there</p>
+        <LoginDisplay />
+    </NotAuthorized>
+</AuthorizeView>
+
+@code{
+    
+}

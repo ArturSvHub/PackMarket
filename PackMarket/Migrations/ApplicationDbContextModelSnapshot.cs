@@ -428,14 +428,24 @@ namespace PackMarket.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int?>("ProductId")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductId");
-
                     b.ToTable("Tags");
+                });
+
+            modelBuilder.Entity("ProductTag", b =>
+                {
+                    b.Property<int>("ProductsId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("TagsId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("ProductsId", "TagsId");
+
+                    b.HasIndex("TagsId");
+
+                    b.ToTable("ProductTag");
                 });
 
             modelBuilder.Entity("PackMarket.Data.Models.User", b =>
@@ -583,11 +593,19 @@ namespace PackMarket.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("PackMarket.Data.Models.Tag", b =>
+            modelBuilder.Entity("ProductTag", b =>
                 {
                     b.HasOne("PackMarket.Data.Models.Product", null)
-                        .WithMany("Tags")
-                        .HasForeignKey("ProductId");
+                        .WithMany()
+                        .HasForeignKey("ProductsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PackMarket.Data.Models.Tag", null)
+                        .WithMany()
+                        .HasForeignKey("TagsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("PackMarket.Data.Models.User", b =>
@@ -615,11 +633,6 @@ namespace PackMarket.Migrations
                     b.Navigation("Children");
 
                     b.Navigation("Products");
-                });
-
-            modelBuilder.Entity("PackMarket.Data.Models.Product", b =>
-                {
-                    b.Navigation("Tags");
                 });
 #pragma warning restore 612, 618
         }

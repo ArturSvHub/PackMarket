@@ -13,6 +13,8 @@
         как для корпоративных клиентов так и для частных лиц. 
         Профессионализм и ответственность ключевые преимущества нашей компании.
     </p>
-    <MainCatalog/>
-    
+    @if (Repository.Categories != null)
+    {
+        <MainCatalog WithSidebar=false Categories="MainCategories"/>
+    }
 </div>

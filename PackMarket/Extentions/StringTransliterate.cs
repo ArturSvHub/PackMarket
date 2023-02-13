@@ -27,7 +27,7 @@
                 {
                     result += symbol.SymbolEng;
                 }
-                else if(symbol.SymbolRus==" "|| symbol.SymbolRus == "  ")
+                else if(symbol.SymbolRus==null||symbol.SymbolRus==" "|| symbol.SymbolRus == "  "||symbol.SymbolRus== "%20")
                 {
                     result += "-";
                 }

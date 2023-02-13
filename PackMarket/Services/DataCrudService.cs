@@ -3,9 +3,12 @@
 using Microsoft.EntityFrameworkCore;
 
 using PackMarket.Data;
+using PackMarket.Data.Enums;
 using PackMarket.Data.Models;
 using PackMarket.Data.ViewModels;
 using PackMarket.Extentions;
+
+using System.Xml.Linq;
 
 namespace PackMarket.Services
 {
@@ -20,16 +23,20 @@ namespace PackMarket.Services
         {
             return await dbContext.Categories.Include(c => c.Products).ToListAsync();
         }
+        public List<Category> GetCategoriesAndProducts()
+        {
+            return dbContext.Categories.Include(c => c.Products).ToList();
+        }
         //Categories
         public async Task<List<Category>> GetCategoriesAsync()
         {
             return await dbContext.Categories.ToListAsync();
         }
-        public async Task<Category> GetCategory(int id)
+        public async Task<Category> GetCategoryByIdAsync(int id)
         {
             return await dbContext.Categories.FirstOrDefaultAsync(c => c.Id == id);
         }
-        public async Task<Category> GetCategory(string url)
+        public async Task<Category> GetCategoryByUrlAsync(string url)
         {
             return await dbContext.Categories.FirstOrDefaultAsync(c => c.Url==url);
         }
@@ -59,6 +66,10 @@ namespace PackMarket.Services
         {
             return await dbContext.Products.ToListAsync();
         }
+        internal async Task<List<Product>> GetProductsTagsAsync()
+        {
+            return await dbContext.Products.Include(t=>t.Tags).ToListAsync();
+        }
         internal async Task<List<Product>> GetProductsOrderedByUrlAsync()
         {
             return await dbContext.Products.OrderBy(p=>p.Url).ToListAsync();
@@ -81,10 +92,18 @@ namespace PackMarket.Services
             dbContext.Remove(prod);
             await dbContext.SaveChangesAsync();
         }
-
-        internal async Task<List<Tag>> GetTags()
+        //TAGS
+        internal async Task<List<Tag>> GetTagsAsync()
         {
             return await dbContext.Tags.ToListAsync(); 
+        }
+        internal async Task<Tag> GetTagByNameAsync(string name)
+        {
+            return await dbContext.Tags.FirstOrDefaultAsync(t=>t.Name==name);
+        }
+        internal async Task<Tag> GetTagByIdAsync(int id)
+        {
+            return await dbContext.Tags.FirstOrDefaultAsync(t => t.Id == id);
         }
     }
 }

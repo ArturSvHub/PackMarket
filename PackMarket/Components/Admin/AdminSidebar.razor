@@ -1,0 +1,12 @@
+﻿<div class="sidebar-admin">
+    <Button Clicked="@(()=>Goto("admin/categories"))" Class="header-contacts-button">Категории</Button>
+    <Button Clicked="@(()=>Goto("admin/products"))" Class="header-contacts-button">Товары</Button>
+    <Button Clicked="@(()=>Goto("admin/tags"))" Class="header-contacts-button">Тэги</Button>
+</div>
+@code {
+    [Inject] NavigationManager NavigationManager { get; set; }
+    private void Goto(string url)
+    {
+        NavigationManager.NavigateTo(url);
+    }
+}
