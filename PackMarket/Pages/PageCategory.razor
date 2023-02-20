@@ -11,7 +11,7 @@
     {
         @foreach (var item in Catalog)
         {
-            <IndexCard ImagePath="@item.CategoryImagePath" Caption="@item.CategoryTitle" Href="@item.CategoryUrl" @onclick=""/>
+            <IndexCard ImagePath="@item.CategoryImagePath" Caption="@item.CategoryTitle" Href="@item.CategoryUrl"/>
         }
     }
     else if(Category.Products!=null||Category.Products.Count>0)

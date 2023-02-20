@@ -60,6 +60,7 @@ builder.Services.Configure<ForwardedHeadersOptions>(options =>
 });
 builder.Services.AddScoped<DataCrudService>();
 builder.Services.AddScoped<RepositoryService>();
+builder.Services.AddScoped<CartStorageService>();
 
 var app = builder.Build();
 app.UseCors("External");
