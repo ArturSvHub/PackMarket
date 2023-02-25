@@ -3,6 +3,11 @@
 
 <div class="page stocks">
     <h3>Акции</h3>
+    <Breadcrumb>
+        <BreadcrumbItem><BreadcrumbLink To="">Главная</BreadcrumbLink></BreadcrumbItem>
+        <BreadcrumbItem><BreadcrumbLink To="catalog">Каталог</BreadcrumbLink></BreadcrumbItem>
+        <BreadcrumbItem Active><BreadcrumbLink To="stocks">Акции</BreadcrumbLink></BreadcrumbItem>
+    </Breadcrumb>
     @if (Products == null || Products.Count == 0)
     {
         <p>Тут пока ничего нет</p>

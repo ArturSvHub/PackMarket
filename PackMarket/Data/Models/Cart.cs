@@ -7,13 +7,8 @@ namespace PackMarket.Data.Models
     {
         [Key]
         public int Id { get; set; }
-        [Required]
-        public string? UserId { get; set; }
-        [Required]
-        [ForeignKey("UserId")]
-        public User? User { get; set; }
-        public List<Product>? Products { get; set; }
-        [NotMapped]
+        public string? CartProducts { get; set; }
         public string? IpAddress { get; set; }
+        public DateTime CreatedAt { get; set; }
     }
 }

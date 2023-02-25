@@ -1,3 +1,5 @@
+using Blazored.LocalStorage;
+
 using Blazorise;
 using Blazorise.Icons.Material;
 using Blazorise.Material;
@@ -15,6 +17,7 @@ using PackMarket.Services;
 
 using System.Net;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +25,7 @@ var builder = WebApplication.CreateBuilder(args);
 var defaultConnection = builder.Configuration.GetConnectionString("DefaultConnection");
 var postgresConnection = builder.Configuration.GetConnectionString("PostgresConnection");
 var postgres2Connection = builder.Configuration.GetConnectionString("Postgres2Connection");
+var postgresDefaultConnection = builder.Configuration.GetConnectionString("PostgresDefaultConnection");
 //builder.Services.AddDbContextFactory<ApplicationDbContext>(options =>
 //    options.UseSqlServer(SqlConnectionString));
 builder.Services.AddDbContext<ApplicationDbContext>(opts =>
@@ -58,9 +62,20 @@ builder.Services.Configure<ForwardedHeadersOptions>(options =>
 {
     options.KnownProxies.Add(IPAddress.Parse("127.0.0.1"));
 });
+builder.Services.AddBlazoredLocalStorage(config =>
+{
+    config.JsonSerializerOptions.DictionaryKeyPolicy = JsonNamingPolicy.CamelCase;
+    config.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+    config.JsonSerializerOptions.IgnoreReadOnlyProperties = true;
+    config.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+    config.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+    config.JsonSerializerOptions.ReadCommentHandling = JsonCommentHandling.Skip;
+    config.JsonSerializerOptions.WriteIndented = false;
+});
 builder.Services.AddScoped<DataCrudService>();
 builder.Services.AddScoped<RepositoryService>();
-builder.Services.AddScoped<CartStorageService>();
+builder.Services.AddScoped<BlazorAppContext>();
+builder.Services.AddHostedService<TimedHostedCartService>();
 
 var app = builder.Build();
 app.UseCors("External");

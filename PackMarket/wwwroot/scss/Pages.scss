@@ -7,6 +7,9 @@
     flex-direction: column;
     align-items: center;
     justify-content: start;
+    nav, h3{
+        align-self:start;
+    }
 }
 /* Index page*/
 .after-carousel {

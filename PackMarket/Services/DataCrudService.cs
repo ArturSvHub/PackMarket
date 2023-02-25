@@ -66,6 +66,10 @@ namespace PackMarket.Services
         {
             return await dbContext.Products.ToListAsync();
         }
+        internal async Task<Product> GetProductByIdAsync(int id)
+        {
+            return await dbContext.Products.FirstOrDefaultAsync(p => p.Id == id);
+        }
         internal async Task<List<Product>> GetProductsTagsAsync()
         {
             return await dbContext.Products.Include(t=>t.Tags).ToListAsync();
@@ -104,6 +108,35 @@ namespace PackMarket.Services
         internal async Task<Tag> GetTagByIdAsync(int id)
         {
             return await dbContext.Tags.FirstOrDefaultAsync(t => t.Id == id);
+        }
+        //CART
+        internal async Task<List<Cart>> GetCartsAsync()
+        {
+            return await dbContext.Carts.ToListAsync();
+        }
+        internal async Task<Cart> GetCartByIdAsync(int id)
+        {
+            return await dbContext.Carts.FirstOrDefaultAsync(c => c.Id == id);
+        }
+        internal async Task<Cart> GetCartByIpAsync(string ip)
+        {
+            return await dbContext.Carts.FirstOrDefaultAsync(c => c.IpAddress == ip);
+        }
+        internal async Task SaveCartAsync(Cart cart)
+        {
+            await dbContext.Carts.AddAsync(cart);
+            await dbContext.SaveChangesAsync();
+        }
+        internal async Task UpdateCartAsync(Cart cart)
+        {
+            dbContext.Carts.Update(cart);
+            await dbContext.SaveChangesAsync();
+        }
+        internal async Task DeleteCartAsync(int id)
+        {
+            var cart = await dbContext.Carts.FindAsync(id);
+            dbContext.Remove(cart);
+            await dbContext.SaveChangesAsync();
         }
     }
 }

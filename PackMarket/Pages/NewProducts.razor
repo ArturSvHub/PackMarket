@@ -4,6 +4,11 @@
 
 <div class="page new-products">
     <h3>Новинки</h3>
+    <Breadcrumb>
+        <BreadcrumbItem><BreadcrumbLink To="">Главная</BreadcrumbLink></BreadcrumbItem>
+        <BreadcrumbItem><BreadcrumbLink To="catalog">Каталог</BreadcrumbLink></BreadcrumbItem>
+        <BreadcrumbItem Active><BreadcrumbLink To="new-products">Новинки</BreadcrumbLink></BreadcrumbItem>
+    </Breadcrumb>
     @if(Products==null||Products.Count==0)
     {
         <p>Тут пока ничего нет</p>

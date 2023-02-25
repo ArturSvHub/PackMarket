@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using PackMarket.Data;
@@ -11,9 +12,10 @@ using PackMarket.Data;
 namespace PackMarket.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230224171441_add-cart-2")]
+    partial class addcart2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -247,9 +249,6 @@ namespace PackMarket.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("CartProducts")
-                        .HasColumnType("text");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
@@ -348,6 +347,9 @@ namespace PackMarket.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<int?>("CartId")
+                        .HasColumnType("integer");
+
                     b.Property<int>("CategoryId")
                         .HasColumnType("integer");
 
@@ -383,6 +385,8 @@ namespace PackMarket.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CartId");
 
                     b.HasIndex("CategoryId");
 
@@ -450,11 +454,16 @@ namespace PackMarket.Migrations
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
+                    b.Property<int?>("CartId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("FirstName")
                         .HasColumnType("text");
 
                     b.Property<int?>("PromoId")
                         .HasColumnType("integer");
+
+                    b.HasIndex("CartId");
 
                     b.HasIndex("PromoId");
 
@@ -553,6 +562,10 @@ namespace PackMarket.Migrations
 
             modelBuilder.Entity("PackMarket.Data.Models.Product", b =>
                 {
+                    b.HasOne("PackMarket.Data.Models.Cart", null)
+                        .WithMany("Products")
+                        .HasForeignKey("CartId");
+
                     b.HasOne("PackMarket.Data.Models.Category", "Category")
                         .WithMany("Products")
                         .HasForeignKey("CategoryId")
@@ -588,11 +601,22 @@ namespace PackMarket.Migrations
 
             modelBuilder.Entity("PackMarket.Data.Models.User", b =>
                 {
+                    b.HasOne("PackMarket.Data.Models.Cart", "Cart")
+                        .WithMany()
+                        .HasForeignKey("CartId");
+
                     b.HasOne("PackMarket.Data.Models.Promo", "Promo")
                         .WithMany()
                         .HasForeignKey("PromoId");
 
+                    b.Navigation("Cart");
+
                     b.Navigation("Promo");
+                });
+
+            modelBuilder.Entity("PackMarket.Data.Models.Cart", b =>
+                {
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("PackMarket.Data.Models.Category", b =>

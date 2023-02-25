@@ -4,6 +4,10 @@
 
 <div class="page catalog">
     <h3>Каталог</h3>
+    <Breadcrumb>
+        <BreadcrumbItem><BreadcrumbLink To="">Домашняя</BreadcrumbLink></BreadcrumbItem>
+        <BreadcrumbItem Active><BreadcrumbLink To="catalog">Каталог</BreadcrumbLink></BreadcrumbItem>
+    </Breadcrumb>
     <div class="main-catalog">
         @if(Categories!=null)
         {

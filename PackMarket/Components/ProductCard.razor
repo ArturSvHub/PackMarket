@@ -8,6 +8,7 @@
             @Product.Description
             @Product.RetailPrice
         </CardText>
-        <Button>В корзину</Button>
+        <NumericEdit @bind-Value="@Product.Count" Min="1" Max="10000"></NumericEdit>
+        <Button Clicked="ToCart">В корзину</Button>
     </div>
 </div>

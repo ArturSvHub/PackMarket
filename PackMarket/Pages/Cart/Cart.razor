@@ -1,1 +1,68 @@
-﻿
+﻿@page "/cart"
+<PageTitle>Корзина</PageTitle>
+<div class="cart page">
+    <h3>Корзина</h3>
+    <Breadcrumb>
+        <BreadcrumbItem><BreadcrumbLink To="">Главная</BreadcrumbLink></BreadcrumbItem>
+        <BreadcrumbItem><BreadcrumbLink To="catalog">Каталог</BreadcrumbLink></BreadcrumbItem>
+        <BreadcrumbItem Active><BreadcrumbLink To="Cart">Корзина</BreadcrumbLink></BreadcrumbItem>
+    </Breadcrumb>
+    @if(ThisCart==null||ThisCart.Id==0)
+    {
+            <div class="cart-container-empty">
+            <div class="cart-container-empty-img">
+                <img src="img/icons/shopping-cart-logo.png" alt="" />
+            </div>
+            <div class="cart-empty">
+                <h5>Ваша корзина пуста</h5>
+                <p>Исправить это просто: Найдите товар, который вам нужен и нажмите "В корзину"</p>
+                <Button Clicked="ToCatalog" class="cart-button-catalog">В каталог</Button>
+            </div>
+        </div>
+    }
+    else
+    {
+    <div class="cart-container">
+        <div class="cart-container-header">
+            <div class="name"><p>Наименование</p></div>
+            <div class="price"><p>Цена</p></div>
+            <div class="count"><p>Количество</p></div>
+            <div class="sum"><p>Сумма</p></div>
+        </div>
+        @foreach (var product in Products)
+        {
+            <div class="cart-item">
+            <div class="cart-item-image">
+                <img src="img/products/skotch-testovyj/skotch-testovyj0.jpg" alt="" />
+            </div>
+            <div class="cart-item-desc">
+                <p>@product.Description</p>
+            </div>
+            <div class="cart-item-price">
+                <p>Розничная цена @product.RetailPrice р/шт с НДС</p>
+            </div>
+            <div class="cart-item-count">
+                <input type="number" @bind-value="@product.Count" @bind-value:event="oninput" @onchange="@(async ()=> await ValueChangedAsync(product.Id, product.Count))"></input>
+            </div>
+            <div class="cart-item-sum">
+                        <p>@(product.RetailPrice * product.Count)  руб с НДС</p>
+            </div>
+            <div class="cart-item-delete">
+                <CloseButton TextColor="TextColor.Danger"></CloseButton>
+            </div>
+        </div>
+        }
+    </div>
+    }
+</div>
+
+<div class="cart-footer">
+    <div class="cart-summary">
+        <Button Color="Color.Warning" Clicked="DeleteCart">Очистить</Button>
+        <h6>Итого: @summary</h6>
+    </div>
+    <div class="cart-buttons">
+        <Button Color="Color.Secondary" Clicked="ToCatalog">Продолжить покупки</Button>
+        <Button Color="Color.Success">Оформить заказ</Button>
+    </div>
+</div>

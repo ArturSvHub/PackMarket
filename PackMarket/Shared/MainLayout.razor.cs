@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Components.Web.Virtualization;
 using Microsoft.JSInterop;
 using PackMarket;
 using PackMarket.Shared;
+using PackMarket.Services;
 
 namespace PackMarket.Shared
 {
@@ -24,6 +25,5 @@ namespace PackMarket.Shared
         {
             _drawerOpen = !_drawerOpen;
         }
-        
     }
 }

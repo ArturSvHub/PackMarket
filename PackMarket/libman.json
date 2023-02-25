@@ -32,6 +32,13 @@
         "dist/jquery.slim.min.js",
         "dist/jquery.slim.min.map"
       ]
+    },
+    {
+      "library": "jquery.cookie@1.4.1",
+      "destination": "wwwroot/jquery/dist/",
+      "files": [
+        "jquery.cookie.js"
+      ]
     }
   ]
 }

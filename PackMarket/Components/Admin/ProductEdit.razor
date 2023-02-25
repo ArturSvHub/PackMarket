@@ -26,6 +26,14 @@
                     </SelectList>
                 </Field>
                 <Field>
+                    <FieldLabel>Розничная Цена</FieldLabel>
+                    <NumericEdit Placeholder="Введите розничную цену..." @bind-Value="SelectedProduct.RetailPrice" />
+                </Field>
+                <Field>
+                    <FieldLabel>Закупочная Цена</FieldLabel>
+                    <NumericEdit Placeholder="Введите закупочную цену..." @bind-Value="SelectedProduct.PurshasePrice" />
+                </Field>
+                <Field>
                     <FieldLabel>Тэг</FieldLabel>
                     <SelectList Multiple TItem="Tag" TValue="int" Data="@Tags" TextField="@((item)=>item.Name)" ValueField="@((item)=>item.Id)" SelectedValuesChanged="SelectedTagsChanged"
                         DefaultItemText="Выберите тэг"></SelectList>

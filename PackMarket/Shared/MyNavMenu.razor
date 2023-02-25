@@ -39,11 +39,12 @@
             <li><NavLink class="navlink" ActiveClass="navlink-active" href="price"><span>Прайс-лист</span></NavLink></li>
             <li><NavLink class="navlink" ActiveClass="navlink-active" href="contacts"><span>Контакты</span></NavLink></li>
             <li><NavLink class="navlink" href="admin"><Icon Name="IconName.Search"></Icon></NavLink></li>
-            <li><NavLink class="navlink" ActiveClass="navlink-active" href="cart"><Icon Name="IconName.ShoppingCart"></Icon><Badge>5</Badge></NavLink></li>
+            <li><NavLink class="navlink" ActiveClass="navlink-active" href="cart"><Icon Name="IconName.ShoppingCart"></Icon><Badge>@Count</Badge></NavLink></li>
         </ul>
     </nav>
 </div>
 @code {
+    [Parameter] public int Count { get; set; }
     [Inject]
     public NavigationManager NavigationManager { get; set; }
     void GoToCatalog()
