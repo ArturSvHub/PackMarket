@@ -3,7 +3,6 @@
 using Microsoft.EntityFrameworkCore;
 
 using PackMarket.Data;
-using PackMarket.Data.Enums;
 using PackMarket.Data.Models;
 using PackMarket.Data.ViewModels;
 using PackMarket.Extentions;
@@ -74,6 +73,10 @@ namespace PackMarket.Services
         {
             return await dbContext.Products.Include(t=>t.Tags).ToListAsync();
         }
+        internal async Task<List<Product>> GetProductsTagsStatesAsync()
+        {
+            return await dbContext.Products.Include(t => t.Tags).Include(s=>s.State).ToListAsync();
+        }
         internal async Task<List<Product>> GetProductsOrderedByUrlAsync()
         {
             return await dbContext.Products.OrderBy(p=>p.Url).ToListAsync();
@@ -137,6 +140,19 @@ namespace PackMarket.Services
             var cart = await dbContext.Carts.FindAsync(id);
             dbContext.Remove(cart);
             await dbContext.SaveChangesAsync();
+        }
+        //STATES
+        internal async Task<List<State>> GetStatesAsync()
+        {
+            return await dbContext.States.ToListAsync();
+        }
+        internal async Task<State> GetStateByNameAsync(string name)
+        {
+            return await dbContext.States.FirstOrDefaultAsync(t => t.Name == name);
+        }
+        internal async Task<State> GetStateByIdAsync(int id)
+        {
+            return await dbContext.States.FirstOrDefaultAsync(t => t.Id == id);
         }
     }
 }

@@ -20,5 +20,6 @@ namespace PackMarket.Data
         public DbSet<OptionList> OptionLists { get; set; }
         public DbSet<Promo> Promos { get; set; }
         public DbSet<Cart> Carts { get; set; }
+        public DbSet<State> States { get; set; }
     }
 }

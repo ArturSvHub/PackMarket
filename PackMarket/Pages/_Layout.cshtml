@@ -30,9 +30,19 @@
         </environment>
     </div>
 
-    <script src="_framework/blazor.server.js"></script>
+    <script src="_framework/blazor.server.js" autostart="false"></script>
+    <script>
+        Blazor.start({
+            configureSignalR: function (builder) {
+                let c = builder.build();
+                c.serverTimeoutInMilliseconds = 60000;
+                builder.build = () => {
+                    return c;
+                };
+            }
+        });
+    </script>
     <script src="jquery/dist/jquery.min.js"></script>
-    <script src="jquery/dist/jquery.cookie.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>

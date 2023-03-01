@@ -16,7 +16,6 @@ namespace PackMarket.Pages
 
         [Inject]public RepositoryService Repository { get; set; }
         [Inject] public IJSRuntime? jsRuntime{ get; set; }
-        [Inject] Blazored.LocalStorage.ILocalStorageService localStorage { get; set; }
         [Parameter] public List<Category> Categories { get; set; }
         public List<Category> MainCategories { get; set; }
         string ip;
@@ -45,10 +44,6 @@ namespace PackMarket.Pages
             {
                 return string.Empty;
             }
-        }
-        private async Task SetItemAsync(string name,string value)
-        {
-            await localStorage.SetItemAsync(name, value);
         }
     }
 }

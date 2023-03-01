@@ -1,6 +1,13 @@
 ﻿@page "/{PageUri}"
 
-<PageTitle>@PageUri</PageTitle>
+@if(Category!=null)
+{
+    <PageTitle>@Category.Title</PageTitle>
+}
+else
+{
+    <PageTitle>@PageUri</PageTitle>
+}
 
 <div class="catalog-card-container">
     @if (Category == null)
@@ -11,7 +18,13 @@
     {
         @foreach (var item in Catalog)
         {
-            <IndexCard ImagePath="@item.CategoryImagePath" Caption="@item.CategoryTitle" Href="@item.CategoryUrl"/>
+            <a @onclick="@(()=>Navigation.NavigateTo(item.CategoryUrl,true))" class="catalog-card">
+                <div class="catalog-card-img">
+                    <img src="@item.CategoryImagePath" alt="" />
+                </div>
+            <p>@item.CategoryTitle</p>
+            </a>
+@*            <IndexCard ImagePath="@item.CategoryImagePath" Caption="@item.CategoryTitle" Href="@item.CategoryUrl"/>*@
         }
     }
     else if(Category.Products!=null||Category.Products.Count>0)

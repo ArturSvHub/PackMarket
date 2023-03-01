@@ -1,5 +1,3 @@
-using Blazored.LocalStorage;
-
 using Blazorise;
 using Blazorise.Icons.Material;
 using Blazorise.Material;
@@ -7,6 +5,7 @@ using Blazorise.Material;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.WebEncoders;
 
@@ -29,7 +28,7 @@ var postgresDefaultConnection = builder.Configuration.GetConnectionString("Postg
 //builder.Services.AddDbContextFactory<ApplicationDbContext>(options =>
 //    options.UseSqlServer(SqlConnectionString));
 builder.Services.AddDbContext<ApplicationDbContext>(opts =>
-    opts.UseNpgsql(postgres2Connection));
+    opts.UseNpgsql(postgresConnection));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddCors(x => x.AddPolicy("External", policy => policy.WithOrigins("https://jsonip.com")));
 builder.Services.AddIdentity<User, IdentityRole>(options =>
@@ -45,7 +44,11 @@ builder.Services.AddIdentity<User, IdentityRole>(options =>
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddRazorPages();
-builder.Services.AddServerSideBlazor();
+builder.Services.AddServerSideBlazor().AddHubOptions(options =>
+{
+    options.ClientTimeoutInterval = TimeSpan.FromSeconds(60);
+    options.HandshakeTimeout = TimeSpan.FromSeconds(30);
+});
 builder.Services.AddBlazorise(opts =>
 { opts.Immediate = true; })
     .AddMaterialProviders()
@@ -62,20 +65,11 @@ builder.Services.Configure<ForwardedHeadersOptions>(options =>
 {
     options.KnownProxies.Add(IPAddress.Parse("127.0.0.1"));
 });
-builder.Services.AddBlazoredLocalStorage(config =>
-{
-    config.JsonSerializerOptions.DictionaryKeyPolicy = JsonNamingPolicy.CamelCase;
-    config.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
-    config.JsonSerializerOptions.IgnoreReadOnlyProperties = true;
-    config.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
-    config.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
-    config.JsonSerializerOptions.ReadCommentHandling = JsonCommentHandling.Skip;
-    config.JsonSerializerOptions.WriteIndented = false;
-});
 builder.Services.AddScoped<DataCrudService>();
 builder.Services.AddScoped<RepositoryService>();
 builder.Services.AddScoped<BlazorAppContext>();
 builder.Services.AddHostedService<TimedHostedCartService>();
+builder.Services.AddTransient<IEmailSender, EmailSender>();
 
 var app = builder.Build();
 app.UseCors("External");

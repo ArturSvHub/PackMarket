@@ -12,6 +12,7 @@ namespace PackMarket.Pages
 {
     public partial class PageCategory : ComponentBase
     {
+        [Inject]NavigationManager Navigation {  get; set; }
         [Inject]DataCrudService DbContext { get; set; }
         [Parameter] public string PageUri { get; set; }
         public Category Category { get; set; }

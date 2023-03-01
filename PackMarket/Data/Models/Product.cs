@@ -1,6 +1,4 @@
-﻿using PackMarket.Data.Enums;
-
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PackMarket.Data.Models
@@ -18,7 +16,9 @@ namespace PackMarket.Data.Models
         public decimal? Price { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? ChangedAt { get; set; }
-        public State State { get; set; }
+        public int StateId { get; set; }
+        [ForeignKey("StateId")]
+        public State? State { get; set; }
         public List<Tag> Tags { get; set; }=new List<Tag>();
         public int CategoryId { get; set; }
         [Required]

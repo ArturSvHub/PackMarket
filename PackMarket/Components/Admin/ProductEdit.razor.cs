@@ -2,7 +2,6 @@
 
 using Microsoft.AspNetCore.Components;
 
-using PackMarket.Data.Enums;
 using PackMarket.Data.Models;
 using PackMarket.Extentions;
 using PackMarket.Services;
@@ -21,11 +20,30 @@ namespace PackMarket.Components.Admin
         private bool isDisabled = false;
         [Parameter] public Product? SelectedProduct { get; set; }
         [Parameter]public List<Tag> Tags { get; set; }
-        public List<Tag> selectedTags = new List<Tag>();
+        [Parameter]public List<State> States { get; set; }
+        public IReadOnlyList<int> selectedTagsIds;
         public Modal? ModalRef;
         TimeSpan UtcLabel = new TimeSpan(3, 0, 0);
         List<IFileEntry?> files = new List<IFileEntry?>();
         //--------------
+        protected override void OnInitialized()
+        {
+            if (SelectedProduct.Tags != null)
+            {
+                var ids = new List<int>();
+                foreach (var item in SelectedProduct.Tags)
+                {
+                    ids.Add(item.Id);
+                }
+                selectedTagsIds = new List<int>(ids);
+            }
+            else
+            {
+                selectedTagsIds = new List<int>();
+            }
+            
+        }
+
         Task ShowModal()
         {
             if (ModalRef != null)
@@ -48,10 +66,13 @@ namespace PackMarket.Components.Admin
             SelectedProduct.ChangedAt = DateTime.UtcNow + UtcLabel;
             if (SelectedProduct.State == null)
             {
-                SelectedProduct.State = State.Draft;
+                SelectedProduct.StateId = 1;
             }
-            SelectedProduct.Tags = new();
-            SelectedProduct.Tags.AddRange(selectedTags);
+            SelectedProduct.Tags = new List<Tag>();
+            foreach (var id in selectedTagsIds)
+            {
+                SelectedProduct.Tags.Add(Tags.FirstOrDefault(t=>t.Id==id));
+            }
             SelectedProduct.Url = SelectedProduct.Name.TranslateToUrl();
             SelectedProduct.ImagesPath = Path.Combine("img", "products", SelectedProduct.Url);
             string path = Path.Combine(Environment.CurrentDirectory, "wwwroot", SelectedProduct.ImagesPath);
@@ -86,24 +107,9 @@ namespace PackMarket.Components.Admin
             isDisabled = false;
             return Task.CompletedTask;
         }
-        private Task SelectedStateChanged(State state)
+        private Task SelectedStateChanged(int value)
         {
-            SelectedProduct.State = state;
-            return Task.CompletedTask;
-        }
-        private Task SelectedTagsChanged(IReadOnlyList<int> values)
-        {
-
-            foreach (var tag in Tags)
-            {
-                foreach (var value in values)
-                {
-                    if(value == tag.Id)
-                    {
-                        selectedTags.Add(tag);
-                    }
-                }
-            }
+            SelectedProduct.StateId = value;
             return Task.CompletedTask;
         }
     }

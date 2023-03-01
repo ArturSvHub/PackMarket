@@ -16,7 +16,7 @@ namespace PackMarket.Components
     {
         [Inject]DataCrudService DataCrud { get; set; }
         [Inject]BlazorAppContext BlazorAppContext { get; set; }
-        public Cart Cart { get; set; }
+        public Data.Models.Cart Cart { get; set; }
         public List<CartProduct> CartProducts { get; set; }
         [Parameter] public Product Product { get; set; }
         [Parameter] public DirectoryInfo Directory { get; set; }
@@ -24,7 +24,14 @@ namespace PackMarket.Components
         protected override void OnInitialized()
         {
             var file = Directory.GetFiles().FirstOrDefault();
-            ImagePath = $"img/products/{Product.Url}/{file.Name}";
+            if(file == null)
+            {
+                ImagePath = $"img/products/";
+            }
+            else
+            {
+                ImagePath = $"img/products/{Product.Url}/{file.Name}";
+            }
             Product.Count = 1;
         }
         private async Task ToCart()
@@ -33,7 +40,7 @@ namespace PackMarket.Components
             if (Cart == null)
             {
                 CartProducts = new List<CartProduct> { new CartProduct() { ProductId = Product.Id, Count = Product.Count } };
-                Cart = new Cart {
+                Cart = new Data.Models.Cart {
                     IpAddress = BlazorAppContext.IP,
                     CreatedAt = DateTime.UtcNow + TimeSpan.FromHours(3),
                     CartProducts = JsonSerializer.Serialize(CartProducts)

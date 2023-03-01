@@ -1,16 +1,9 @@
-﻿using Blazored.LocalStorage;
-
-using Blazorise.DataGrid;
-
-using Microsoft.AspNetCore.Components;
-using Microsoft.JSInterop;
+﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 using PackMarket.Data.Models;
 using PackMarket.Services;
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text.Json;
 
 namespace PackMarket.Pages.Cart
@@ -70,5 +63,6 @@ namespace PackMarket.Pages.Cart
             }
             NavigationManager.NavigateTo("");
         }
+        
     }
 }

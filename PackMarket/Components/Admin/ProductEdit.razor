@@ -1,5 +1,4 @@
 ﻿@using Blazorise.Components
-@using PackMarket.Data.Enums;
 <Button Color="Color.Success" Clicked="ShowModal">Изменить</Button>
 <Modal @ref="ModalRef">
     <Form>
@@ -35,13 +34,11 @@
                 </Field>
                 <Field>
                     <FieldLabel>Тэг</FieldLabel>
-                    <SelectList Multiple TItem="Tag" TValue="int" Data="@Tags" TextField="@((item)=>item.Name)" ValueField="@((item)=>item.Id)" SelectedValuesChanged="SelectedTagsChanged"
-                        DefaultItemText="Выберите тэг"></SelectList>
+                    <SelectList Multiple TItem="Tag" TValue="int" Data="@Tags" TextField="@((item)=>item.Name)" ValueField="@((item)=>item.Id)" @bind-SelectedValues="@selectedTagsIds"></SelectList>
                 </Field>
                 <Field>
                     <FieldLabel>Состояние</FieldLabel>
-                    <SelectList TItem="State" SelectedValueChanged="@SelectedStateChanged" TValue="State" TextField="@((item)=>item.ToString())" ValueField="@((item)=>item)"
-                                DefaultItemText="Изменить состояние" DefaultItemDisabled DefaultItemHidden></SelectList>
+                    <SelectList TItem="State" TValue="int" Data="@States" TextField="@((item)=>item.Name)" ValueField="@((item)=>item.Id)" @bind-SelectedValue="@SelectedProduct.StateId"></SelectList>
                 </Field>
                 <Field>
                     <FileEdit Multiple Changed="OnFiles" Filter="image/jpeg, image/png, image/gif" Placeholder="Выберите изображения для категории..." />

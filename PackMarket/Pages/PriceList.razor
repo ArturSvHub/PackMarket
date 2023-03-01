@@ -1,11 +1,44 @@
 ﻿@page "/price"
 <PageTitle>Прайс-лист</PageTitle>
 
-<div class="page price">
+<div class="page price-list">
     <h3>Прайс-лист</h3>
     <Breadcrumb>
         <BreadcrumbItem><BreadcrumbLink To="">Главная</BreadcrumbLink></BreadcrumbItem>
-        <BreadcrumbItem><BreadcrumbLink To="catalog">Каталог</BreadcrumbLink></BreadcrumbItem>
         <BreadcrumbItem Active><BreadcrumbLink To="price">Прайс-лист</BreadcrumbLink></BreadcrumbItem>
     </Breadcrumb>
+    <div class="price-list-table">
+        @if (Products == null)
+        {
+            <h4>Пока нет товаров...</h4>
+        }
+        else
+        {
+            <Table Hoverable
+                      Bordered>
+            <TableHeader>
+                <TableHeaderCell>#</TableHeaderCell>
+                <TableHeaderCell>Название</TableHeaderCell>
+                <TableHeaderCell>Описание</TableHeaderCell>
+                <TableHeaderCell>Цена с НДС</TableHeaderCell>
+            </TableHeader>
+            <TableBody>
+                @for (int i = 0; i < Products.Count-1; i++)
+                    {
+                        <TableRow>
+                            <TableRowHeader>
+                                @(
+                                    i + 1
+                                    )
+                            </TableRowHeader>
+                            <TableRowCell>@Products[i].Name</TableRowCell>
+                            <TableRowCell>@Products[i].Description</TableRowCell>
+                            <TableRowCell>@Products[i].RetailPrice</TableRowCell>
+                        </TableRow>
+                    }
+                </TableBody>
+            </Table>
+        }
+
+    </div>
 </div>

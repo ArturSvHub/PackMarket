@@ -19,13 +19,15 @@ namespace PackMarket.Components.Admin
         [Inject][Parameter] public DataCrudService CrudService { get; set; }
         List<Category> Categories { get; set; } = new List<Category>();
         List<Tag> Tags { get; set; } = new List<Tag>();
+        List<State> States { get; set; } = new List<State>();
         public List<Product> Products { get; set; } = new List<Product>();
         private Product selectedProduct = new Product();
         protected override async Task OnInitializedAsync()
         {
             Categories = await CrudService.GetCategoriesAsync();
-            Products = await CrudService.GetProductsTagsAsync();
+            Products = await CrudService.GetProductsTagsStatesAsync();
             Tags = await CrudService.GetTagsAsync();
+            States= await CrudService.GetStatesAsync();
             await base.OnInitializedAsync();
         }
         async Task OnRowRemoved(Product product)

@@ -1,0 +1,39 @@
+﻿<Button Color="Color.Success" Clicked="ShowModal">Оформить заказ</Button>
+<Modal @ref="ModalRef">
+    <ModalContent Size="ModalSize.Large">
+        <ModalHeader>
+            <ModalTitle>Оформление заказа</ModalTitle>
+            <CloseButton />
+        </ModalHeader>
+        <ModalBody>
+            <Field>
+                <FieldLabel>Ваше имя:</FieldLabel>
+                <TextEdit />
+            </Field>
+            <Field>
+                <FieldLabel>Телефон:</FieldLabel>
+                <TextEdit Placeholder="+79665221133" />
+            </Field>
+            <Field>
+                <FieldLabel>Название компании:</FieldLabel>
+                <TextEdit Placeholder="ООО Газпром" />
+            </Field>
+            <Field>
+                <FieldLabel>E-Mail:</FieldLabel>
+                <TextEdit />
+            </Field>
+            <Field>
+                <FieldLabel>Адрес доставки:</FieldLabel>
+                <TextEdit Placeholder="Если оставите пустым - самовывоз" />
+            </Field>
+            <Field>
+                <FieldLabel>Дополнительное пожелание</FieldLabel>
+                <TextEdit />
+            </Field>
+        </ModalBody>
+        <ModalFooter>
+            <Button Color="Color.Secondary" Clicked="@HideModal">Отменить</Button>
+            <Button Color="Color.Primary" Clicked="@SendEmailAsync">Отправить заказ</Button>
+        </ModalFooter>
+    </ModalContent>
+</Modal>

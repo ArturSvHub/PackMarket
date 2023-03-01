@@ -25,6 +25,22 @@
                     </SelectList>
                 </Field>
                 <Field>
+                    <FieldLabel>Розничная Цена</FieldLabel>
+                    <NumericEdit Placeholder="Введите розничную цену..." @bind-Value="Product.RetailPrice" />
+                </Field>
+                <Field>
+                    <FieldLabel>Закупочная Цена</FieldLabel>
+                    <NumericEdit Placeholder="Введите закупочную цену..." @bind-Value="Product.PurshasePrice" />
+                </Field>
+                <Field>
+                    <FieldLabel>Тэг</FieldLabel>
+                    <SelectList Multiple TItem="Tag" TValue="int" Data="@Tags" TextField="@((item)=>item.Name)" ValueField="@((item)=>item.Id)" @bind-SelectedValues="@selectedTagsIds"></SelectList>
+                    </Field>
+                    <Field>
+                    <FieldLabel>Состояние</FieldLabel>
+                    <SelectList TItem="State" TValue="int" Data="@States" TextField="@((item)=>item.Name)" ValueField="@((item)=>item.Id)" @bind-SelectedValue="@Product.StateId"></SelectList>
+                    </Field>
+                <Field>
                     <FileEdit Multiple Changed="OnFiles" Filter="image/jpeg, image/png, image/gif" Placeholder="Выберите изображения для категории..." />
                 </Field>
             </ModalBody>

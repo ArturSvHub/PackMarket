@@ -1,6 +1,6 @@
 ﻿@page "/"
 
-<PageTitle>Домашняя</PageTitle>
+<PageTitle>Главная</PageTitle>
 <div class="page index">
     <CarouselComponent/>
     @*<h1>@ip</h1>*@
@@ -17,5 +17,4 @@
     {
         <MainCatalog WithSidebar=false Categories="MainCategories"/>
     }
-    <Button Clicked="@(async ()=>await SetItemAsync(name,temp))">Ввести</Button>
 </div>

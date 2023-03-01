@@ -133,3 +133,13 @@
         }
     }
 }
+.click-link {
+    color: black;
+
+    &:hover {
+        color: #3579AC;
+    }
+}
+.price-list-table{
+    align-self:stretch;
+}

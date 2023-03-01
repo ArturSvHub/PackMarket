@@ -16,6 +16,9 @@ namespace PackMarket.Components.Admin
         [Parameter] public EventCallback UpdateState { get; set; }
         [Parameter] public List<Category> Categories { get; set; }
         [Parameter] public DataCrudService DataContext { get; set; }
+        [Parameter] public List<Tag> Tags { get; set; }
+        [Parameter] public List<State> States { get; set; }
+        public IReadOnlyList<int> selectedTagsIds;
         private bool isDisabled=true;
         private Product? Product { get; set; }
         public Modal? ModalRef;
@@ -25,6 +28,7 @@ namespace PackMarket.Components.Admin
         protected override async Task OnInitializedAsync()
         {
             Product = new Product();
+            selectedTagsIds = new List<int>();
         }
         //--------------
         Task ShowModal()
@@ -47,7 +51,15 @@ namespace PackMarket.Components.Admin
         async Task SaveProduct()
         {
             Product.CreatedAt = DateTime.UtcNow + UtcLabel;
-            Product.State = Data.Enums.State.Draft;
+            if (Product.State == null)
+            {
+                Product.StateId = 1;
+            }
+            Product.Tags = new List<Tag>();
+            foreach (var id in selectedTagsIds)
+            {
+                Product.Tags.Add(Tags.FirstOrDefault(t => t.Id == id));
+            }
             Product.Url = Product.Name.TranslateToUrl();
             Product.ImagesPath = Path.Combine("img", "products", Product.Url);
             string path = Path.Combine(Environment.CurrentDirectory, "wwwroot", Product.ImagesPath);

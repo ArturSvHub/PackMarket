@@ -23,7 +23,11 @@
                   CommandMode="DataGridCommandMode.ButtonRow">
             <DataGridColumns>
                 <DataGridColumn Field="@nameof(Product.Name)" Caption="Товар" />
-                <DataGridColumn Field="@nameof(Product.State)" Caption="Состояние" />
+                <DataGridColumn Field="@nameof(Product.State)" Caption="Состояние">
+                    <DisplayTemplate>
+                        @context.State.Name
+                    </DisplayTemplate>
+                </DataGridColumn>
                 <DataGridColumn Field="@nameof(Product.Tags)" Caption="Метка">
                     <DisplayTemplate>
                         @if (context.Tags.Count > 0)
@@ -54,10 +58,10 @@
                 </DataGridDateColumn>
             </DataGridColumns>
             <ButtonRowTemplate>
-                <ProductCreate Categories="Categories" DataContext="CrudService" UpdateState="ChangeProducts" />
+                <ProductCreate Categories="Categories" DataContext="CrudService" UpdateState="ChangeProducts" Tags="Tags" States="States" />
                 @if (selectedProduct!=null&&selectedProduct.Id > 0)
                 {
-                    <ProductEdit Categories="Categories" DataContext="CrudService" UpdateState="ChangeProducts" SelectedProduct="selectedProduct" Tags="Tags" />
+                    <ProductEdit Categories="Categories" DataContext="CrudService" UpdateState="ChangeProducts" SelectedProduct="selectedProduct" Tags="Tags" States="States"/>
                 }
                 <Button Color="Color.Danger" Disabled="(selectedProduct is null)" Clicked="@(async ()=>{await context.DeleteCommand.Clicked.InvokeAsync(); await OnRowRemoved(context.DeleteCommand.Item);})">Удалить</Button>
                 <Button Color="Color.Light" Clicked="context.ClearFilterCommand.Clicked">Очистить фильтр</Button>

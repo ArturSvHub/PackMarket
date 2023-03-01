@@ -550,6 +550,17 @@ nav li:hover > .submenu {
   border-bottom: 1px solid #CBCBCC;
 }
 
+.click-link {
+  color: black;
+}
+.click-link:hover {
+  color: #3579AC;
+}
+
+.price-list-table {
+  align-self: stretch;
+}
+
 .cart {
   max-width: 1200px;
   display: flex;
@@ -686,6 +697,46 @@ nav li:hover > .submenu {
   align-self: stretch;
   display: flex;
   justify-content: space-between;
+}
+
+.contact-body {
+  align-self: stretch;
+  display: flex;
+  padding: 10px;
+}
+
+.contact-slider {
+  margin: 0 20px 0 0;
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.contact-item {
+  display: flex;
+}
+
+.contact-item-logo {
+  margin: 0 10px;
+  display: flex;
+  align-items: center;
+}
+
+.contact-item-desc h5 {
+  font-weight: 700;
+}
+.contact-item-desc p {
+  word-wrap: break-word;
+  font-size: 1.25rem;
+}
+.contact-item-desc a {
+  font-size: 1.25rem;
+}
+
+.contact-map {
+  width: 70%;
+  margin: 5px;
 }
 
 body {
