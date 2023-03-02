@@ -25,8 +25,14 @@ namespace PackMarket.Components.IndexComponents
             {
                 catPath = Path.Combine(Environment.CurrentDirectory, "wwwroot", "img", "categories", item.Url!);
                 GetPath();
-                Catalog.Add(new CatalogView { CategoryTitle = item.Title, CategoryUrl = item.Url, CategoryImagePath = $"img/categories/{item.Url}/{FileNames[0].Name}" });
-
+                if (FileNames[0]!= null)
+                {
+                    Catalog.Add(new CatalogView { CategoryTitle = item.Title, CategoryUrl = item.Url, CategoryImagePath = $"img/categories/{item.Url}/{FileNames[0].Name}" });
+                }
+                else
+                {
+                    Catalog.Add(new CatalogView { CategoryTitle = item.Title, CategoryUrl = item.Url, CategoryImagePath = $"img/categories/{item.Url}/1.img" });
+                }
             }
         }
         private void GetPath()
@@ -38,7 +44,7 @@ namespace PackMarket.Components.IndexComponents
                 FileNames = df.GetFiles();
             }
             else
-                FileNames = new FileInfo[0];
+                FileNames = new FileInfo[1];
         }
     }
 }
